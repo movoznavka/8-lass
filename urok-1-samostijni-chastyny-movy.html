@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Уроки · 8 клас</title>
+<title>1. Самостійні частини мови · Урок</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -21,6 +21,8 @@
 
     --correct-bg:#E6F8EE;
     --correct-ink:#128A54;
+    --wrong-bg:#FDEAEA;
+    --wrong-ink:#C0272D;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -31,7 +33,7 @@
     min-height:100vh;
     padding:28px 16px 64px;
   }
-  .wrap{max-width:960px;margin:0 auto;}
+  .wrap{max-width:820px;margin:0 auto;}
 
   .topbar{
     display:flex;
@@ -49,159 +51,270 @@
     text-transform:uppercase;
     color:var(--ink);
     opacity:.55;
+    text-decoration:none;
   }
-  .kicker.tag{opacity:.4;}
+  a.kicker{display:inline-flex;align-items:center;gap:6px;opacity:.7;}
+  a.kicker:hover{opacity:1;}
 
   h1{
     font-family:'Manrope',sans-serif;
     font-weight:800;
-    font-size:clamp(26px,6vw,38px);
-    line-height:1.05;
+    font-size:clamp(24px,5.4vw,34px);
+    line-height:1.1;
     letter-spacing:-0.01em;
     margin:0 0 8px;
-    text-transform:uppercase;
   }
-  h1 .hl{color:var(--c1-b);}
+  h1 .num{color:var(--c1-b);}
   .sub{color:var(--ink-soft);font-size:15px;max-width:60ch;margin:0 0 30px;font-weight:500;}
 
-  .searchbox{
-    display:flex;
-    align-items:center;
-    gap:10px;
+  .progress-wrap{
     background:var(--card);
     border-radius:16px;
-    padding:12px 16px;
+    padding:14px 18px;
     margin-bottom:34px;
     box-shadow: 0 14px 30px -24px rgba(59,35,19,0.35);
+    display:flex;
+    align-items:center;
+    gap:14px;
   }
-  .searchbox svg{flex:none;opacity:.4;}
-  .searchbox input{
-    border:none;outline:none;
-    font-family:'Inter',sans-serif;
-    font-size:14.5px;
-    font-weight:500;
-    color:var(--ink);
-    width:100%;
-    background:transparent;
+  .progress-label{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    color:var(--ink-soft);
+    white-space:nowrap;
   }
-  .searchbox input::placeholder{color:var(--ink-soft);}
+  .progress-track{
+    flex:1;
+    height:8px;
+    border-radius:99px;
+    background:var(--bg-soft);
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    border-radius:99px;
+    background:linear-gradient(90deg,var(--c1-a),var(--c1-b));
+    transition:width .3s ease;
+  }
+  #score-num{color:var(--c1-b);}
 
-  .block{
-    margin-bottom:46px;
+  section.block{
+    background:var(--card);
+    border-radius:24px;
+    padding:26px 24px 24px;
+    margin-bottom:22px;
+    box-shadow: 0 14px 30px -24px rgba(59,35,19,0.35);
+  }
+
+  .block-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .block-num{
+    width:34px;height:34px;min-width:34px;
+    border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;
+    color:#fff;
+    background:linear-gradient(150deg,var(--c1-a),var(--c1-b));
+    box-shadow:0 6px 14px -6px var(--c1-sh);
   }
   .block-title{
     font-family:'Manrope',sans-serif;
     font-weight:800;
-    font-size:24px;
-    letter-spacing:-0.01em;
-    margin:0 0 4px;
-    padding-bottom:12px;
-    border-bottom:2px solid rgba(59,35,19,0.14);
-  }
-
-  .subgroup{ margin-bottom:26px; margin-top:24px; }
-  .subgroup:first-of-type{ margin-top:22px; }
-  .subgroup-title{
-    font-family:'Manrope',sans-serif;
-    font-weight:800;
-    font-size:14px;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-    color:var(--c1-b);
-    margin:0 0 14px 2px;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:5px 14px 5px 12px;
-    border-radius:999px;
-    background: rgba(238,122,51,0.10);
-  }
-  .subgroup-title::before{
-    content:'';
-    width:6px;height:6px;
-    border-radius:50%;
-    background:var(--c1-b);
-  }
-
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(250px, 1fr));
-    gap:14px;
-  }
-
-  .card{
-    background:var(--card);
-    border-radius:22px;
-    padding:22px 22px 20px;
-    box-shadow: 0 14px 30px -24px rgba(59,35,19,0.35);
-    text-decoration:none;
-    color:var(--ink);
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    position:relative;
-    transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .card.ready:hover{
-    transform:translateY(-3px);
-    box-shadow: 0 18px 34px -18px rgba(59,35,19,0.4);
-  }
-  .card.soon{
-    opacity:.5;
-    cursor:default;
-    pointer-events:none;
-  }
-
-  .card-top{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:8px;
-  }
-
-  .tile{
-    width:40px;height:40px;min-width:40px;
-    border-radius:12px;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Manrope',sans-serif;
-    font-weight:800;
-    font-size:14px;
-    color:var(--c1-b);
-    background: linear-gradient(150deg, rgba(255,255,255,0.75), rgba(255,179,95,0.28));
-    backdrop-filter: blur(6px) saturate(160%);
-    -webkit-backdrop-filter: blur(6px) saturate(160%);
-    border:1px solid rgba(255,255,255,0.7);
-    box-shadow: 0 4px 12px -7px var(--c1-sh), inset 0 1px 1px rgba(255,255,255,0.8);
-  }
-
-  .status{
-    font-family:'Manrope',sans-serif;
-    font-weight:800;
-    font-size:10.5px;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-    padding:5px 10px;
-    border-radius:999px;
-    white-space:nowrap;
-  }
-  .status.ready{background:var(--correct-bg);color:var(--correct-ink);}
-  .status.soon{background:var(--bg-soft);color:var(--ink-soft);}
-
-  .card-title{
-    font-family:'Manrope',sans-serif;
-    font-weight:700;
-    font-size:16.5px;
-    line-height:1.32;
+    font-size:18.5px;
     margin:0;
   }
-  .card-sub{
-    font-size:13px;
+  .block-desc{
     color:var(--ink-soft);
+    font-size:14px;
     font-weight:500;
-    margin:0;
+    margin:0 0 18px;
+    line-height:1.5;
   }
 
-  .card.hidden{ display:none; }
+  /* --- reference scheme (not a task) --- */
+  .ref-row{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    margin-bottom:18px;
+  }
+  .ref-row img{
+    width:120px;height:120px;
+    object-fit:cover;
+    border-radius:16px;
+    flex:none;
+    box-shadow:0 10px 22px -12px rgba(59,35,19,0.4);
+  }
+  .ref-row p{
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    margin:0;
+    font-weight:500;
+  }
+  @media (max-width:520px){
+    .ref-row{flex-direction:column;}
+    .ref-row img{width:100%;height:130px;}
+  }
+  .scheme{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:12px;
+    margin-top:6px;
+  }
+  .scheme-card{
+    border-radius:16px;
+    padding:14px 16px;
+    background:var(--bg-soft);
+  }
+  .scheme-title{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    color:var(--c1-b);
+    margin:0 0 8px;
+  }
+  .scheme-list{margin:0;padding-left:18px;font-size:13.5px;line-height:1.85;font-weight:500;}
+  .scheme-list b{color:var(--ink);}
+  .scheme-full{grid-column:1/-1;}
+  .scheme-full .scheme-title{color:var(--c3-b);}
+
+  /* --- quiz question --- */
+  .q{
+    margin-bottom:20px;
+    padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+  }
+  .q:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .q-prompt{
+    font-weight:700;
+    font-size:15px;
+    margin:0 0 12px;
+    line-height:1.5;
+  }
+  .q-prompt .qn{color:var(--c1-b);font-family:'Manrope',sans-serif;font-weight:800;}
+  .q-prompt b{color:var(--c2-b);}
+
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opts.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .opt{
+    text-align:left;
+    border:1.5px solid var(--line);
+    background:#fff;
+    border-radius:12px;
+    padding:11px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .12s ease;
+  }
+  .opt:hover:not(.correct):not(.wrong):not([disabled]){
+    border-color:var(--c1-b);
+    background: rgba(238,122,51,0.06);
+  }
+  .opt.correct{background:var(--correct-bg);border-color:var(--correct-ink);color:var(--correct-ink);}
+  .opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-ink);color:var(--wrong-ink);}
+  .opt[disabled]{cursor:default;}
+
+  .q-feedback{
+    margin-top:10px;
+    font-size:13.5px;
+    font-weight:600;
+    padding:10px 13px;
+    border-radius:10px;
+    display:none;
+    line-height:1.5;
+  }
+  .q-feedback.show{display:block;}
+  .q-feedback.ok{background:var(--correct-bg);color:var(--correct-ink);}
+  .q-feedback.bad{background:var(--wrong-bg);color:var(--wrong-ink);}
+
+  /* --- word chips (text-analysis task) --- */
+  .passage{
+    background:var(--bg-soft);
+    border-radius:16px;
+    padding:16px 18px;
+    font-size:14.5px;
+    line-height:2.05;
+    margin-bottom:16px;
+  }
+  .passage p{margin:0 0 10px;}
+  .passage p:last-child{margin-bottom:0;}
+  .chip{
+    display:inline-block;
+    border:none;
+    background:transparent;
+    font:inherit;
+    cursor:pointer;
+    color:var(--ink);
+    padding:1px 3px;
+    border-radius:6px;
+    transition:all .12s ease;
+  }
+  .chip:hover{background:rgba(238,122,51,0.14);}
+  .chip.picked{background:var(--c1-b);color:#fff;font-weight:700;}
+  .chip.picked.correct{background:var(--correct-ink);}
+  .chip.picked.wrong{background:var(--wrong-ink);}
+  .chip.missed{background:var(--wrong-bg);text-decoration:underline;text-decoration-color:var(--wrong-ink);}
+
+  /* --- buttons --- */
+  .btn{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:13.5px;
+    letter-spacing:.02em;
+    border:none;
+    border-radius:12px;
+    padding:11px 20px;
+    cursor:pointer;
+    background:linear-gradient(150deg,var(--c1-a),var(--c1-b));
+    color:#fff;
+    box-shadow:0 8px 18px -8px var(--c1-sh);
+  }
+  .btn:hover{filter:brightness(1.04);}
+  .btn:disabled{opacity:.45;cursor:default;}
+  .btn.ghost{
+    background:var(--bg-soft);
+    color:var(--ink);
+    box-shadow:none;
+  }
+
+  /* --- reading text with a real photo --- */
+  .reading{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    margin-bottom:16px;
+  }
+  .reading img{
+    width:150px;height:150px;
+    object-fit:cover;
+    flex:none;border-radius:16px;
+    box-shadow:0 10px 22px -12px rgba(59,35,19,0.4);
+  }
+  .reading .passage{flex:1;margin-bottom:0;}
+  .photo-credit{font-size:11px;color:var(--ink-soft);opacity:.7;margin:-10px 0 16px;text-align:right;}
+  @media (max-width:520px){
+    .reading{flex-direction:column;}
+    .reading img{width:100%;max-width:280px;height:170px;margin:0 auto;}
+  }
+
+  .tf-row{
+    display:flex;
+    gap:10px;
+    margin-top:2px;
+  }
+  .tf-row .opt{flex:1;text-align:center;}
 
   footer{
     text-align:center;
@@ -215,156 +328,422 @@
 <body>
 <div class="wrap">
   <div class="topbar">
-    <div class="kicker">Навігація</div>
-    <div class="kicker tag">8 клас</div>
+    <a class="kicker" href="index.html">← До всіх уроків</a>
+    <div class="kicker">8 клас · Повторення</div>
   </div>
 
-  <h1>Усі <span class="hl">уроки</span></h1>
-  <p class="sub">Ця сторінка — лише для вас. Відкрийте потрібну тему, щоб пояснювати матеріал і малювати прямо на екрані.</p>
+  <h1><span class="num">1.</span> Самостійні частини мови</h1>
+  <p class="sub">Поглиблений огляд: іменник, прикметник, числівник, займенник, дієслово й прислівник — не лише впізнавання, а й точні граматичні ознаки кожного слова.</p>
 
-  <div class="searchbox">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <input id="search" type="text" placeholder="Пошук теми…">
+  <div class="progress-wrap">
+    <span class="progress-label">Результат: <span id="score-num">0</span>/<span id="score-total">0</span></span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
   </div>
 
-  <div id="blocks"></div>
+  <!-- ДОВІДКА (не завдання) -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">✦</div>
+      <h2 class="block-title">Пригадаймо</h2>
+    </div>
+    <p class="block-desc">Частини мови поділяються на самостійні (мають лексичне значення, морфологічні ознаки й самостійно бувають членами речення), службові (оформлюють зв'язки між словами) та вигук, що стоїть окремо.</p>
+    <div class="ref-row">
+      <img src="https://images.unsplash.com/photo-1508169351866-777fc0047ac5?fm=jpg&q=70&w=400&auto=format&fit=crop" alt="Розгорнута книга">
+      <p>Щоб упевнено визначати частину мови, недостатньо впізнати слово — треба вміти назвати його граматичні ознаки: рід, число, відмінок; вид, час; розряд тощо. Саме це й перевіряють завдання нижче.</p>
+    </div>
+    <div class="scheme">
+      <div class="scheme-card">
+        <p class="scheme-title">Самостійні (6)</p>
+        <ul class="scheme-list">
+          <li><b>іменник</b> — предмет: хто? що?</li>
+          <li><b>прикметник</b> — ознака предмета: який? чий?</li>
+          <li><b>числівник</b> — число, кількість, порядок: скільки? котрий?</li>
+          <li><b>займенник</b> — вказує на предмет/ознаку/кількість, не називаючи їх</li>
+          <li><b>дієслово</b> — дія або стан: що робити? що зробити?</li>
+          <li><b>прислівник</b> — ознака дії, ознаки чи предмета: як? де? коли?</li>
+        </ul>
+      </div>
+      <div class="scheme-card">
+        <p class="scheme-title">Службові (3)</p>
+        <ul class="scheme-list">
+          <li><b>прийменник</b> — виражає зв'язок іменника з іншими словами</li>
+          <li><b>сполучник</b> — з'єднує однорідні члени чи частини речення</li>
+          <li><b>частка</b> — надає слову чи реченню додаткового відтінку</li>
+        </ul>
+      </div>
+      <div class="scheme-card scheme-full">
+        <p class="scheme-title">Окрема група</p>
+        <ul class="scheme-list"><li><b>вигук</b> — виражає почуття або спонукання, не називаючи їх (ой, гей, алло)</li></ul>
+      </div>
+    </div>
+  </section>
 
-  <footer>@movoznavka</footer>
+  <!-- ЗАВДАННЯ 1: частина мови + граматична ознака -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">1</div>
+      <h2 class="block-title">Частина мови й граматична ознака</h2>
+    </div>
+    <p class="block-desc">Визначте не лише частину мови виділеного слова, а й його ключову граматичну ознаку.</p>
+    <div id="quiz1"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 2: спільнокореневі слова -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">2</div>
+      <h2 class="block-title">Один корінь — різні частини мови</h2>
+    </div>
+    <p class="block-desc">Спільнокореневі слова можуть належати до різних частин мови. Визначте частину мови кожного слова.</p>
+    <div id="quiz2"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 3: розряди займенників -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">3</div>
+      <h2 class="block-title">Займенник: розряди за значенням</h2>
+    </div>
+    <p class="block-desc">Визначте розряд виділеного займенника. Зверніть увагу: та сама форма слова може належати до різних розрядів залежно від речення.</p>
+    <div id="quiz3"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 4: числівник -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">4</div>
+      <h2 class="block-title">Числівник: розряд і будова</h2>
+    </div>
+    <p class="block-desc">Визначте розряд числівника за значенням (кількісний, порядковий, збірний, дробовий) і за будовою (простий, складний, складений).</p>
+    <div id="quiz4"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 5: дієслово -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">5</div>
+      <h2 class="block-title">Дієслово: вид і час</h2>
+    </div>
+    <p class="block-desc">Визначте вид (доконаний / недоконаний) і час виділеного дієслова.</p>
+    <div id="quiz5"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 6: прислівник -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">6</div>
+      <h2 class="block-title">Прислівник: розряди за значенням</h2>
+    </div>
+    <p class="block-desc">Визначте, на яке значення вказує виділений прислівник.</p>
+    <div id="quiz6"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 7: текст + пошук дієслів -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">7</div>
+      <h2 class="block-title">Працюємо з текстом: їжак звичайний</h2>
+    </div>
+    <p class="block-desc">Прочитайте текст, а тоді натисніть на всі дієслова (особові форми та інфінітиви). За кожне правильно знайдене — 1 бал.</p>
+    <div class="reading">
+      <img src="https://images.unsplash.com/photo-1727165858118-9f32531daab3?fm=jpg&q=75&w=500&auto=format&fit=crop" alt="Їжак у траві шукає їжу">
+      <div class="passage" id="passage"></div>
+    </div>
+    <div class="photo-credit">Фото: Viktor Smoliak / Unsplash</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn" id="passage-check">Перевірити</button>
+      <button class="btn ghost" id="passage-reset">Спочатку</button>
+    </div>
+    <div class="q-feedback" id="passage-feedback"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 8: правда/неправда за текстом -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">8</div>
+      <h2 class="block-title">Правда чи неправда?</h2>
+    </div>
+    <p class="block-desc">Спираючись на текст про їжака вище, визначте, чи правдиве кожне твердження.</p>
+    <div id="quiz8"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 9: орфографія -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">9</div>
+      <h2 class="block-title">Обери правильний варіант написання</h2>
+    </div>
+    <p class="block-desc">У кожному реченні оберіть правильний варіант написання виділеного слова.</p>
+    <div id="quiz9"></div>
+  </section>
+
+  <footer>@movoznavka · Урок 1 · 8 клас</footer>
 </div>
 
 <script>
 /* ============================================================
-   ЯК ДОДАТИ НОВИЙ УРОК ЧИ ТЕМУ
-   Весь список живе в масиві BLOCKS нижче — block (розділ) →
-   subgroups (підрозділи; title: null — якщо підрозділ без назви)
-   → items (самі картки).
-
-   Щоб додати картку — скопіюй один блок { ... } всередині items
-   і зміни icon / status / title / desc / href.
-   status: "ready" — картка активна, клікабельна, зелений бейдж "Готово"
-           "soon"  — картка неактивна, сірий бейдж "Скоро"
-   href повинен бути ПОВНИМ посиланням (https://...).
+   Загальний рушій тестів. Кожне питання:
+   { prompt, options:[...], correctIndex, explain }
+   Рендериться в контейнер через renderQuiz().
    ============================================================ */
 
-const BLOCKS = [
+let TOTAL = 0, SCORE = 0;
+function bump(correct){
+  TOTAL++; if(correct) SCORE++;
+  document.getElementById('score-num').textContent = SCORE;
+  document.getElementById('score-total').textContent = TOTAL;
+}
+function updateBar(){
+  const total = window.__totalQuestions || 1;
+  const done = window.__answeredQuestions || 0;
+  document.getElementById('progress-fill').style.width = Math.min(100,(done/total)*100)+'%';
+}
+
+function renderQuiz(containerId, questions, opts={}){
+  const el = document.getElementById(containerId);
+  window.__totalQuestions = (window.__totalQuestions||0) + questions.length;
+  questions.forEach((q,i)=>{
+    const qDiv = document.createElement('div');
+    qDiv.className = 'q';
+    let html = `<p class="q-prompt"><span class="qn">${i+1}.</span> ${q.prompt}</p>`;
+    html += `<div class="opts ${opts.grid2 ? 'grid2':''}">`;
+    q.options.forEach((opt,oi)=>{
+      html += `<button class="opt" data-i="${oi}">${opt}</button>`;
+    });
+    html += `</div><div class="q-feedback" id="fb-${containerId}-${i}"></div>`;
+    qDiv.innerHTML = html;
+    el.appendChild(qDiv);
+
+    qDiv.querySelectorAll('.opt').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(qDiv.dataset.answered) return;
+        qDiv.dataset.answered = '1';
+        const chosen = parseInt(btn.dataset.i);
+        const correct = chosen === q.correctIndex;
+        qDiv.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+        btn.classList.add(correct?'correct':'wrong');
+        if(!correct){
+          qDiv.querySelectorAll('.opt')[q.correctIndex].classList.add('correct');
+        }
+        const fb = document.getElementById(`fb-${containerId}-${i}`);
+        fb.textContent = (correct? '✓ Правильно! ' : '✗ Неправильно. ') + (q.explain||'');
+        fb.className = 'q-feedback show ' + (correct?'ok':'bad');
+        bump(correct);
+        window.__answeredQuestions = (window.__answeredQuestions||0)+1;
+        updateBar();
+      });
+    });
+  });
+}
+
+/* ---------- ЗАВДАННЯ 1: частина мови + граматична ознака ---------- */
+renderQuiz('quiz1', [
   {
-    name: "Повторення та узагальнення вивченого",
-    subgroups: [
-      { title: null, items: [
-        {icon: "С", status: "soon", title: "Самостійні частини мови", href: "urok-samostijni-chastyny-movy.html"},
-        {icon: "Д", status: "soon", title: "Дієслово та його форми", href: "urok-diyeslovo-formy.html"},
-        {icon: "Р", status: "soon", title: "Розряди прислівників за значенням", href: "urok-pryslivnyky-rozryady.html"},
-        {icon: "П", status: "soon", title: "Правопис прислівників", href: "urok-pryslivnyky-pravopys.html"},
-        {icon: "С", status: "soon", title: "Службові частини мови", href: "urok-sluzhbovi-chastyny-movy.html"},
-        {icon: "П", status: "soon", title: "Правопис службових частин мови", href: "urok-sluzhbovi-pravopys.html"},
-        {icon: "Г", status: "soon", title: "Граматичні помилки", href: "urok-hramatychni-pomylky.html"}
-      ]}
-    ]
+    prompt: '<b>Троє</b> друзів вирушили в похід гірськими стежками.',
+    options: ['Числівник, збірний','Числівник, кількісний','Іменник'],
+    correctIndex: 0,
+    explain: '«Троє» — збірний числівник: такі числівники (двоє, троє, четверо…) сполучаються з іменниками на позначення осіб, дітей або тварин.'
   },
   {
-    name: "Синтаксис. Пунктуація",
-    subgroups: [
-      { title: "Словосполучення і речення", items: [
-        {icon: "С", status: "soon", title: "Словосполучення", href: "urok-slovospoluchennya.html"},
-        {icon: "Г", status: "soon", title: "Граматична помилка в словосполученні", href: "urok-hram-pomylka-slovospoluchennya.html"},
-        {icon: "Р", status: "soon", title: "Речення", href: "urok-rechennya.html"},
-        {icon: "П", status: "soon", title: "Підмет", href: "urok-pidmet.html"},
-        {icon: "П", status: "soon", title: "Присудок. Простий і складений дієслівний присудок", href: "urok-prysudok-diyeslivnyi.html"},
-        {icon: "С", status: "soon", title: "Складений іменний присудок", href: "urok-prysudok-imennyi.html"},
-        {icon: "У", status: "soon", title: "Узгодження головних членів речення", href: "urok-uzgodzhennya-holovnyh-chleniv.html"},
-        {icon: "Т", status: "soon", title: "Тире між підметом і присудком", href: "urok-tyre-pidmet-prysudok.html"},
-        {icon: "У", status: "soon", title: "Узагальнення: «Словосполучення і речення»", href: "urok-uzagalnennya-slovospoluchennya-rechennya.html"}
-      ]},
-      { title: "Другорядні члени речення", items: [
-        {icon: "О", status: "soon", title: "Означення", href: "urok-oznachennya.html"},
-        {icon: "П", status: "soon", title: "Прикладка як різновид означення", href: "urok-prykladka.html"},
-        {icon: "Н", status: "soon", title: "Написання прикладок", href: "urok-napysannya-prykladok.html"},
-        {icon: "Д", status: "soon", title: "Додаток", href: "urok-dodatok.html"},
-        {icon: "О", status: "soon", title: "Обставина", href: "urok-obstavyna.html"},
-        {icon: "П", status: "soon", title: "Порівняльний зворот", href: "urok-porivnyalnyi-zvorot.html"},
-        {icon: "П", status: "soon", title: "Порядок слів у реченні. Логічний наголос", href: "urok-poryadok-sliv.html"},
-        {icon: "У", status: "soon", title: "Узагальнення: «Другорядні члени речення»", href: "urok-uzagalnennya-druhoryadni-chleny.html"}
-      ]},
-      { title: "Односкладне речення. Повне і неповне речення", items: [
-        {icon: "О", status: "soon", title: "Односкладні речення", href: "urok-odnoskladni-rechennya.html"},
-        {icon: "О", status: "soon", title: "Означено-особові та неозначено-особові речення", href: "urok-oznacheno-osobovi.html"},
-        {icon: "У", status: "soon", title: "Узагальнено-особові речення", href: "urok-uzagalneno-osobovi.html"},
-        {icon: "Б", status: "soon", title: "Безособові речення", href: "urok-bezosobovi.html"},
-        {icon: "Н", status: "soon", title: "Називні речення", href: "urok-nazyvni.html"},
-        {icon: "П", status: "soon", title: "Повні і неповні речення", href: "urok-povni-nepovni.html"},
-        {icon: "У", status: "soon", title: "Узагальнення: «Односкладне речення. Повне і неповне речення»", href: "urok-uzagalnennya-odnoskladni.html"}
-      ]},
-      { title: "Речення з однорідними членами", items: [
-        {icon: "О", status: "soon", title: "Однорідні члени речення", href: "urok-odnoridni-chleny.html"},
-        {icon: "К", status: "soon", title: "Кома між однорідними членами речення", href: "urok-koma-odnoridni.html"},
-        {icon: "О", status: "soon", title: "Однорідні й неоднорідні означення", href: "urok-odnoridni-neodnoridni.html"},
-        {icon: "У", status: "soon", title: "Узагальнювальні слова в реченнях з однорідними членами", href: "urok-uzagalnyuvalni-slova.html"},
-        {icon: "Т", status: "soon", title: "Типові помилки під час побудови речень з однорідними членами", href: "urok-typovi-pomylky-odnoridni.html"}
-      ]},
-      { title: "Речення із звертаннями, вставними словами", items: [
-        {icon: "З", status: "soon", title: "Звертання", href: "urok-zvertannya.html"},
-        {icon: "В", status: "soon", title: "Вставні слова (сполучення слів, речення)", href: "urok-vstavni-slova.html"},
-        {icon: "У", status: "soon", title: "Узагальнення: «Однорідні члени» та «Звертання, вставні слова»", href: "urok-uzagalnennya-zvertannya-vstavni.html"}
-      ]},
-      { title: "Речення з відокремленими членами", items: [
-        {icon: "В", status: "soon", title: "Відокремлені означення", href: "urok-vidokremleni-oznachennya.html"},
-        {icon: "В", status: "soon", title: "Відокремлені прикладки", href: "urok-vidokremleni-prykladky.html"},
-        {icon: "В", status: "soon", title: "Відокремлені обставини", href: "urok-vidokremleni-obstavyny.html"},
-        {icon: "В", status: "soon", title: "Відокремлені додатки", href: "urok-vidokremleni-dodatky.html"},
-        {icon: "В", status: "soon", title: "Відокремлені уточнювальні члени речення", href: "urok-vidokremleni-utochnyuvalni.html"},
-        {icon: "У", status: "soon", title: "Узагальнення: «Речення з відокремленими членами»", href: "urok-uzagalnennya-vidokremleni.html"}
-      ]}
-    ]
+    prompt: 'Навколо панувала цілковита <b>тиша</b>.',
+    options: ['Іменник','Прикметник','Прислівник'],
+    correctIndex: 0,
+    explain: '«Тиша» відповідає на питання «що?» і називає предмет (абстрактне поняття) — це іменник.'
   },
   {
-    name: "Узагальнення та систематизація вивченого",
-    subgroups: [
-      { title: null, items: [
-        {icon: "С", status: "soon", title: "Словосполучення і речення. Члени речення. Типи речень", href: "urok-uzagalnennya-slovospoluchennya-chleny-typy.html"},
-        {icon: "Р", status: "soon", title: "Розділові знаки в простому ускладненому реченні", href: "urok-rozdilovi-znaky-uskladnene.html"}
-      ]}
-    ]
+    prompt: 'Учень відповідав на запитання <b>впевнено</b>.',
+    options: ['Прислівник','Прикметник','Дієприслівник'],
+    correctIndex: 0,
+    explain: '«Впевнено» відповідає на питання «як?» і залежить від дієслова «відповідав» — це прислівник способу дії.'
+  },
+  {
+    prompt: 'Він мав <b>упевнений</b> вигляд, хоч насправді хвилювався.',
+    options: ['Прикметник','Дієприкметник','Прислівник'],
+    correctIndex: 0,
+    explain: '«Упевнений» тут означає постійну рису людини (можна замінити на «рішучий»), а не результат конкретної дії, — тому це прикметник, а не дієприкметник.'
+  },
+  {
+    prompt: 'Це зауваження висловив не я, а <b>він</b>.',
+    options: ['Займенник, особовий','Займенник, вказівний','Іменник'],
+    correctIndex: 0,
+    explain: '«Він» вказує на особу, не називаючи її, і належить до особових займенників (я, ти, він, вона, воно, ми, ви, вони).'
+  },
+  {
+    prompt: 'Хлопець фінішував <b>третім</b> у забігу на тисячу метрів.',
+    options: ['Числівник, порядковий','Числівник, кількісний','Прикметник'],
+    correctIndex: 0,
+    explain: '«Третім» відповідає на питання «котрим?» і вказує на порядок під час лічби — це порядковий числівник.'
+  },
+  {
+    prompt: 'Щодня він <b>переписує</b> в зошит нові слова.',
+    options: ['Дієслово, недоконаний вид','Дієслово, доконаний вид','Іменник'],
+    correctIndex: 0,
+    explain: '«Переписує» відповідає на питання «що робить?» і означає дію, яка повторюється, — це недоконаний вид.'
+  },
+  {
+    prompt: 'Учора він <b>переписав</b> увесь текст начисто.',
+    options: ['Дієслово, доконаний вид','Дієслово, недоконаний вид','Прислівник'],
+    correctIndex: 0,
+    explain: '«Переписав» відповідає на питання «що зробив?» і означає завершену одноразову дію — доконаний вид.'
   }
+]);
+
+/* ---------- ЗАВДАННЯ 2 (спільнокореневі) ---------- */
+renderQuiz('quiz2', [
+  {prompt:'<b>сила</b>', options:['Іменник','Прикметник','Прислівник'], correctIndex:0, explain:'Відповідає на питання «що?» — це іменник.'},
+  {prompt:'<b>сильний</b>', options:['Дієслово','Прикметник','Числівник'], correctIndex:1, explain:'Відповідає на питання «який?» — це прикметник.'},
+  {prompt:'<b>сильно</b>', options:['Прислівник','Іменник','Займенник'], correctIndex:0, explain:'Відповідає на питання «як?» — це прислівник.'},
+  {prompt:'<b>силувати</b>', options:['Прикметник','Прислівник','Дієслово'], correctIndex:2, explain:'Відповідає на питання «що робити?» — це дієслово.'}
+], {grid2:true});
+
+/* ---------- ЗАВДАННЯ 3 (розряди займенників) ---------- */
+renderQuiz('quiz3', [
+  {prompt:'Я <b>сам</b> виправив цю помилку.', options:['Означальний','Особовий','Вказівний'], correctIndex:0, explain:'«Сам» підкреслює, що дію виконано без сторонньої допомоги, — це означальний займенник (сам, весь, кожен, інший).'},
+  {prompt:'<b>Чий</b> це записник лежить на парті?', options:['Питальний','Присвійний','Відносний'], correctIndex:0, explain:'У питальному реченні «чий» ставить питання про належність — це питальний займенник.'},
+  {prompt:'Дівчина, <b>чий</b> записник лежав на парті, підійшла першою.', options:['Відносний','Питальний','Присвійний'], correctIndex:0, explain:'Та сама форма «чий» тут не питає, а пов’язує частини складнопідрядного речення — це відносний займенник.'},
+  {prompt:'<b>Ніхто</b> з класу не впорався із завданням за п’ять хвилин.', options:['Заперечний','Неозначений','Означальний'], correctIndex:0, explain:'«Ніхто» заперечує наявність особи — заперечний займенник (ніхто, ніщо, нічий, ніякий).'},
+  {prompt:'<b>Хтось</b> залишив у роздягальні синій рюкзак.', options:['Неозначений','Питальний','Заперечний'], correctIndex:0, explain:'«Хтось» вказує на невідому, неозначену особу — неозначений займенник.'},
+  {prompt:'<b>Кожен</b> учень отримав власне завдання.', options:['Означальний','Вказівний','Присвійний'], correctIndex:0, explain:'«Кожен» виділяє всіх без винятку — означальний займенник.'},
+  {prompt:'Він завжди відповідає за <b>себе</b> сам.', options:['Зворотний','Особовий','Означальний'], correctIndex:0, explain:'«Себе» вказує на того самого, хто виконує дію, і не має форми називного відмінка — це зворотний займенник.'},
+  {prompt:'<b>Свій</b> зошит я залишив удома, тож писав у чужому.', options:['Присвійний','Означальний','Вказівний'], correctIndex:0, explain:'«Свій» вказує на належність предмета особі — присвійний займенник.'},
+  {prompt:'<b>Такого</b> успіху команда ще не мала.', options:['Вказівний','Означальний','Означений'], correctIndex:0, explain:'«Такого» вказує на ознаку чи ступінь, виділяючи предмет серед інших, — вказівний займенник (той, цей, такий, стільки).'}
+], {grid2:true});
+
+/* ---------- ЗАВДАННЯ 4 (числівник) ---------- */
+renderQuiz('quiz4', [
+  {prompt:'У класі навчається <b>двадцять п’ять</b> учнів.', options:['Кількісний, складений','Кількісний, складний','Порядковий, складений'], correctIndex:0, explain:'Числівник записаний двома словами, кожне з яких відмінюється, — кількісний, складений.'},
+  {prompt:'<b>Шістнадцятого</b> вересня розпочався навчальний рік.', options:['Порядковий, простий','Кількісний, простий','Порядковий, складний'], correctIndex:0, explain:'Один корінь, вказує на порядок під час лічби — порядковий, простий.'},
+  {prompt:'У змаганні брало участь <b>п’ятдесят</b> спортсменів.', options:['Кількісний, складний','Кількісний, простий','Кількісний, складений'], correctIndex:0, explain:'Одне слово з двома коренями (п’ять + десят) — кількісний, складний.'},
+  {prompt:'<b>Двоє</b> хлопців та троє дівчат представляли школу на олімпіаді.', options:['Збірний','Кількісний, цілий','Дробовий'], correctIndex:0, explain:'«Двоє» сполучається з іменником на позначення осіб — збірний числівник.'},
+  {prompt:'Учениця розв’язала приклад і отримала <b>три чверті</b> від заданого числа.', options:['Дробовий','Збірний','Порядковий'], correctIndex:0, explain:'Позначає частину від цілого — дробовий числівник.'},
+  {prompt:'<b>Тисяча дев’ятсот дев’яносто першого</b> року відбулася ця подія.', options:['Порядковий, складений','Кількісний, складений','Порядковий, складний'], correctIndex:0, explain:'Записаний кількома словами й указує на порядок (який рік?) — порядковий, складений.'}
+]);
+
+/* ---------- ЗАВДАННЯ 5 (дієслово: вид і час) ---------- */
+renderQuiz('quiz5', [
+  {prompt:'Учора ми довго <b>обговорювали</b> новий фільм.', options:['Недоконаний вид, минулий час','Доконаний вид, минулий час','Недоконаний вид, теперішній час'], correctIndex:0, explain:'Дія тривала, не вказано на її завершеність, — недоконаний вид, минулий час.'},
+  {prompt:'Завтра ми обов’язково <b>обговоримо</b> цю статтю на уроці.', options:['Доконаний вид, майбутній час','Недоконаний вид, майбутній час','Доконаний вид, теперішній час'], correctIndex:0, explain:'Дія матиме результат і межу в часі — доконаний вид, майбутній час.'},
+  {prompt:'Щоранку він <b>прокидається</b> о сьомій годині.', options:['Недоконаний вид, теперішній час','Доконаний вид, теперішній час','Недоконаний вид, майбутній час'], correctIndex:0, explain:'Дія регулярно повторюється — недоконаний вид, теперішній час.'},
+  {prompt:'Раптом хтось голосно <b>постукав</b> у двері.', options:['Доконаний вид, минулий час','Недоконаний вид, минулий час','Доконаний вид, майбутній час'], correctIndex:0, explain:'Дія одноразова й завершена — доконаний вид, минулий час.'},
+  {prompt:'Коли я прийду додому, обов’язково <b>подзвоню</b> тобі.', options:['Доконаний вид, майбутній час','Недоконаний вид, майбутній час','Доконаний вид, минулий час'], correctIndex:0, explain:'Дія завершиться результатом (дзвінком) — доконаний вид, майбутній час.'},
+  {prompt:'Діти щодня <b>гуляють</b> у парку після школи.', options:['Недоконаний вид, теперішній час','Доконаний вид, теперішній час','Недоконаний вид, минулий час'], correctIndex:0, explain:'Дія повторювана, без вказівки на завершення, — недоконаний вид, теперішній час.'}
+]);
+
+/* ---------- ЗАВДАННЯ 6 (прислівник: розряди) ---------- */
+renderQuiz('quiz6', [
+  {prompt:'Він розв’язав задачу <b>швидко</b>.', options:['Спосіб дії','Місце','Причина'], correctIndex:0, explain:'Відповідає на питання «як?» — прислівник способу дії.'},
+  {prompt:'Ми зустрінемося <b>завтра</b>.', options:['Час','Спосіб дії','Міра і ступінь'], correctIndex:0, explain:'Відповідає на питання «коли?» — прислівник часу.'},
+  {prompt:'<b>Звідти</b> видно все місто.', options:['Місце','Час','Мета'], correctIndex:0, explain:'Відповідає на питання «звідки?» — прислівник місця.'},
+  {prompt:'Він <b>навмисно</b> спізнився на урок.', options:['Мета','Причина','Спосіб дії'], correctIndex:0, explain:'Відповідає на питання «навіщо?» — прислівник мети.'},
+  {prompt:'Хлопчик образився й замовк <b>спересердя</b>.', options:['Причина','Мета','Міра і ступінь'], correctIndex:0, explain:'Відповідає на питання «чому?» — прислівник причини.'},
+  {prompt:'Вона <b>занадто</b> хвилювалася перед виступом.', options:['Міра і ступінь','Спосіб дії','Причина'], correctIndex:0, explain:'Відповідає на питання «якою мірою?» — прислівник міри і ступеня.'}
+], {grid2:true});
+
+/* ---------- ЗАВДАННЯ 7 (текст + пошук дієслів) ---------- */
+const passageSentences = [
+  ["Їжак", "звичайний", "—", "нічна", "тварина,", "яка", "живе", "в", "лісах,", "садах", "і", "парках", "України."],
+  ["Удень", "він", "ховається", "в", "укритті", "під", "корінням,", "а", "з", "настанням", "сутінків", "виходить", "на", "пошуки", "їжі."],
+  ["Їжак", "їсть", "комах,", "слимаків", "і", "дощових", "черв’яків,", "тому", "садівники", "вважають", "його", "корисним", "сусідом."],
+  ["Найбільше", "їжак", "їсть", "восени,", "адже", "перед", "сплячкою", "мусить", "накопичити", "достатній", "запас", "жиру,", "щоб", "пережити", "зиму."],
+  ["Коли", "настають", "стійкі", "холоди,", "тварина", "будує", "гніздо", "із", "сухого", "листя", "й", "моху", "та", "впадає", "у", "сплячку,", "яка", "триває", "до", "квітня."],
+  ["У", "разі", "небезпеки", "їжак", "згортається", "в", "щільну", "кулю:", "гострі", "голки", "на", "спині", "захищають", "вразливі", "частини", "тіла."]
 ];
-
-const blocksEl = document.getElementById('blocks');
-
-blocksEl.innerHTML = BLOCKS.map(block => `
-  <div class="block">
-    <h2 class="block-title">${block.name}</h2>
-    ${block.subgroups.map(sg => `
-      <div class="subgroup">
-        ${sg.title ? `<div class="subgroup-title">${sg.title}</div>` : ''}
-        <div class="grid">
-          ${sg.items.map(it => `
-            <a class="card ${it.status}" data-title="${it.title.toLowerCase()}" href="${it.status==='soon'?'#':it.href}">
-              <div class="card-top">
-                <span class="tile">${it.icon}</span>
-                <span class="status ${it.status}">${it.status==='soon'?'Скоро':'Готово'}</span>
-              </div>
-              <p class="card-title">${it.title}</p>
-              ${it.desc?`<p class="card-sub">${it.desc}</p>`:''}
-            </a>`).join('')}
-        </div>
-      </div>
-    `).join('')}
-  </div>
-`).join('');
-
-document.getElementById('search').addEventListener('input', (e)=>{
-  const q = e.target.value.trim().toLowerCase();
-  document.querySelectorAll('.card').forEach(card=>{
-    card.classList.toggle('hidden', q && !card.dataset.title.includes(q));
+const passageVerbs = new Set(["живе","ховається","виходить","їсть","вважають","мусить","накопичити","пережити","настають","будує","впадає","триває","згортається","захищають"]);
+const passageEl = document.getElementById('passage');
+let passageDone = false;
+passageSentences.forEach(sentence=>{
+  const p = document.createElement('p');
+  sentence.forEach(word=>{
+    const clean = word.replace(/[.,!?;:—""]/g,'').toLowerCase();
+    const btn = document.createElement('button');
+    btn.className='chip';
+    btn.textContent = word + ' ';
+    btn.dataset.word = clean;
+    btn.addEventListener('click', ()=>{
+      if(passageDone) return;
+      btn.classList.toggle('picked');
+    });
+    p.appendChild(btn);
   });
-  document.querySelectorAll('.subgroup').forEach(sg=>{
-    const anyVisible = [...sg.querySelectorAll('.card')].some(c=>!c.classList.contains('hidden'));
-    sg.style.display = anyVisible ? '' : 'none';
-  });
-  document.querySelectorAll('.block').forEach(b=>{
-    const anyVisible = [...b.querySelectorAll('.card')].some(c=>!c.classList.contains('hidden'));
-    b.style.display = anyVisible ? '' : 'none';
-  });
+  passageEl.appendChild(p);
 });
+document.getElementById('passage-check').addEventListener('click', ()=>{
+  if(passageDone) return;
+  passageDone = true;
+  let correctPicks=0, wrongPicks=0, missed=0;
+  const chips = passageEl.querySelectorAll('.chip');
+  chips.forEach(c=>{
+    const isVerb = passageVerbs.has(c.dataset.word);
+    const picked = c.classList.contains('picked');
+    if(picked && isVerb){ c.classList.add('correct'); correctPicks++; }
+    else if(picked && !isVerb){ c.classList.add('wrong'); wrongPicks++; }
+    else if(!picked && isVerb){ c.classList.add('missed'); missed++; }
+    c.style.pointerEvents='none';
+  });
+  const fb = document.getElementById('passage-feedback');
+  fb.classList.add('show');
+  const total = passageVerbs.size;
+  const ok = wrongPicks===0 && missed===0;
+  fb.className = 'q-feedback show ' + (ok?'ok':'bad');
+  fb.textContent = `Знайдено правильно: ${correctPicks} із ${total}. ${missed?('Пропущено: '+missed+'. '):''}${wrongPicks?('Зайвих виборів: '+wrongPicks+'.'):''} ${ok?'Чудово, усі дієслова знайдені!':''}`;
+  for(let i=0;i<total;i++) bump(i<correctPicks);
+  window.__totalQuestions=(window.__totalQuestions||0)+total;
+  window.__answeredQuestions=(window.__answeredQuestions||0)+total;
+  updateBar();
+});
+document.getElementById('passage-reset').addEventListener('click', ()=>{
+  location.reload();
+});
+
+/* ---------- ЗАВДАННЯ 8 (правда/неправда) ---------- */
+function renderTF(containerId, items){
+  const el = document.getElementById(containerId);
+  window.__totalQuestions = (window.__totalQuestions||0) + items.length;
+  items.forEach((it,i)=>{
+    const qDiv = document.createElement('div');
+    qDiv.className='q';
+    qDiv.innerHTML = `<p class="q-prompt"><span class="qn">${i+1}.</span> ${it.text}</p>
+      <div class="opts tf-row">
+        <button class="opt" data-v="true">Правда</button>
+        <button class="opt" data-v="false">Неправда</button>
+      </div>
+      <div class="q-feedback" id="fb-${containerId}-${i}"></div>`;
+    el.appendChild(qDiv);
+    qDiv.querySelectorAll('.opt').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(qDiv.dataset.answered) return;
+        qDiv.dataset.answered='1';
+        const chosen = btn.dataset.v === 'true';
+        const correct = chosen === it.answer;
+        qDiv.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+        btn.classList.add(correct?'correct':'wrong');
+        if(!correct){
+          const rightBtn = [...qDiv.querySelectorAll('.opt')].find(b => (b.dataset.v==='true')===it.answer);
+          rightBtn.classList.add('correct');
+        }
+        const fb = document.getElementById(`fb-${containerId}-${i}`);
+        fb.textContent = (correct?'✓ Правильно! ':'✗ Неправильно. ') + it.explain;
+        fb.className = 'q-feedback show ' + (correct?'ok':'bad');
+        bump(correct);
+        window.__answeredQuestions=(window.__answeredQuestions||0)+1;
+        updateBar();
+      });
+    });
+  });
+}
+renderTF('quiz8', [
+  {text:'Їжак шукає їжу вдень.', answer:false, explain:'Навпаки — вдень він ховається, а на пошуки їжі виходить із настанням сутінків.'},
+  {text:'Перед сплячкою їжак накопичує запас жиру.', answer:true, explain:'Так, це прямо сказано в тексті.'},
+  {text:'Голки на спині їжака не мають захисної функції.', answer:false, explain:'Навпаки — голки захищають вразливі частини тіла, коли тварина згортається в кулю.'},
+  {text:'Садівники вважають їжака корисним, бо він їсть комах і слимаків.', answer:true, explain:'Так, саме за це садівники вважають його корисним сусідом.'}
+]);
+
+/* ---------- ЗАВДАННЯ 9 (орфографія) ---------- */
+renderQuiz('quiz9', [
+  {prompt:'Хлопці довго не могли (в,у)гамувати пса, що вирвався з двору.', options:['вгамувати','угамувати'], correctIndex:1, explain:'На початку речення (після паузи) частіше вживаємо «у» для милозвучності: угамувати.'},
+  {prompt:'Дівчина (з,із,зі) сестрою назбирали повний кошик суниць.', options:['з сестрою','зі сестрою'], correctIndex:0, explain:'Перед приголосним «с» використовуємо прийменник «з»: з сестрою.'},
+  {prompt:'Ще (не)забаром розпочнеться новий навчальний семестр.', options:['незабаром','не забаром'], correctIndex:0, explain:'Прислівник «незабаром» у значенні «скоро» пишемо разом.'}
+]);
 </script>
 </body>
 </html>
