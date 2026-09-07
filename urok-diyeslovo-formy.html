@@ -8,22 +8,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FCE9D0;
-    --bg-soft:#FCF2E4;
+    --bg:#E2E1F5;
+    --bg-soft:#F1F0FA;
     --card:#FFFFFF;
-    --ink:#3B2313;
-    --ink-soft:#A0785F;
-    --line: rgba(59,35,19,0.08);
+    --ink:#251F42;
+    --ink-soft:#6F6A96;
+    --line: rgba(37,31,66,0.1);
 
-    /* колір цього уроку — синій (замість помаранчевого в уроці 1) */
-    --c1-a:#7FC7FF; --c1-b:#1E6FE0; --c1-sh: rgba(30,111,224,0.45);
-    --c3-a:#5FE0A8; --c3-b:#17A863; --c3-sh: rgba(23,168,99,0.4);
-    --c2-b:#E5484D;
+    /* колір цього уроку — синьо-бузкова холодна палітра */
+    --c1-a:#8B93F0; --c1-b:#4A3FCB; --c1-sh: rgba(74,63,203,0.45);
+    --c3-a:#C9A3F0; --c3-b:#8449D1; --c3-sh: rgba(132,73,209,0.4);
+    --c2-b:#C23B6B;
 
-    --correct-bg:#E6F8EE;
-    --correct-ink:#128A54;
-    --wrong-bg:#FDEAEA;
-    --wrong-ink:#C0272D;
+    --correct-bg:#E2F2EA;
+    --correct-ink:#1F8F5E;
+    --wrong-bg:#FBE6ED;
+    --wrong-ink:#C23B6B;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
@@ -42,7 +42,7 @@
     align-items:center;
     padding-bottom:16px;
     margin-bottom:22px;
-    border-bottom:1.5px solid rgba(59,35,19,0.14);
+    border-bottom:1.5px solid rgba(37,31,66,0.14);
   }
   .kicker{
     font-family:'Manrope',sans-serif;
@@ -73,7 +73,7 @@
     border-radius:16px;
     padding:14px 18px;
     margin-bottom:34px;
-    box-shadow: 0 14px 30px -24px rgba(59,35,19,0.35);
+    box-shadow: 0 14px 30px -24px rgba(37,31,66,0.3);
     display:flex;
     align-items:center;
     gap:14px;
@@ -106,7 +106,7 @@
     border-radius:24px;
     padding:26px 24px 24px;
     margin-bottom:22px;
-    box-shadow: 0 14px 30px -24px rgba(59,35,19,0.35);
+    box-shadow: 0 14px 30px -24px rgba(37,31,66,0.3);
   }
 
   .block-head{
@@ -150,7 +150,7 @@
     object-fit:cover;
     border-radius:16px;
     flex:none;
-    box-shadow:0 10px 22px -12px rgba(59,35,19,0.4);
+    box-shadow:0 10px 22px -12px rgba(37,31,66,0.35);
   }
   .ref-row p{
     font-size:14px;
@@ -227,7 +227,7 @@
   }
   .opt:hover:not(.correct):not(.wrong):not([disabled]){
     border-color:var(--c1-b);
-    background: rgba(30,111,224,0.06);
+    background: rgba(74,63,203,0.07);
   }
   .opt.correct{background:var(--correct-bg);border-color:var(--correct-ink);color:var(--correct-ink);}
   .opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-ink);color:var(--wrong-ink);}
@@ -257,7 +257,7 @@
     width:150px;height:150px;
     object-fit:cover;
     flex:none;border-radius:16px;
-    box-shadow:0 10px 22px -12px rgba(59,35,19,0.4);
+    box-shadow:0 10px 22px -12px rgba(37,31,66,0.35);
   }
   .passage{
     background:var(--bg-soft);
