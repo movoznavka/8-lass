@@ -285,6 +285,88 @@
     .reading img{width:100%;max-width:280px;height:170px;margin:0 auto;}
   }
 
+  /* --- flip cards (правило ↔ приклад) --- */
+  .flip-note{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:600;
+    line-height:1.5;
+    margin:-8px 0 22px;
+  }
+  .flip-hint{
+    font-size:12px;
+    color:var(--ink-soft);
+    opacity:.8;
+    font-weight:700;
+    margin:0 0 10px;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+  }
+  .flipgrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+    gap:12px;
+    margin-bottom:22px;
+  }
+  .flipgrid:last-child{margin-bottom:0;}
+  .flipcard{
+    perspective:1000px;
+    height:96px;
+    cursor:pointer;
+  }
+  .flipcard.tall{height:120px;}
+  .flip-inner{
+    position:relative;
+    width:100%;height:100%;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+  }
+  .flipcard.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-face{
+    position:absolute;inset:0;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    border-radius:14px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:10px 12px;
+  }
+  .flip-front{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:14.5px;
+    color:#fff;
+    background:linear-gradient(150deg,var(--c1-a),var(--c1-b));
+    box-shadow:0 10px 20px -12px var(--c1-sh);
+  }
+  .flipcard.tall .flip-front{font-size:13px;line-height:1.3;}
+  .flip-front.alt{
+    background:linear-gradient(150deg,var(--c3-a),var(--c3-b));
+    box-shadow:0 10px 20px -12px var(--c3-sh);
+  }
+  .flip-back{
+    transform:rotateY(180deg);
+    background:var(--bg-soft);
+    color:var(--ink);
+    font-size:12.5px;
+    font-weight:600;
+    line-height:1.45;
+    border:1.5px solid var(--line);
+  }
+  .flipcard.tall .flip-back{font-size:11.5px;line-height:1.4;}
+  .flip-back b{color:var(--c1-b);}
+  .flip-back.alt b{color:var(--c3-b);}
+  .flip-card-icon{
+    position:absolute;
+    bottom:6px;right:8px;
+    font-size:10px;
+    opacity:.6;
+    color:#fff;
+  }
+
   footer{
     text-align:center;
     margin-top:36px;
@@ -320,57 +402,138 @@
       <img src="https://images.unsplash.com/photo-1744060204728-f68e434a3edf?fm=jpg&q=70&w=400&auto=format&fit=crop" alt="Бігун на доріжці стадіону">
       <p>Дієслово називає дію — і саме тому має найскладнішу систему форм серед усіх частин мови. Одна й та сама дія («бігти») може постати як інфінітив, особова форма, дієприкметник чи дієприслівник — і кожна з них відповідає на власне питання.</p>
     </div>
-    <div class="scheme">
-      <div class="scheme-card">
-        <p class="scheme-title">5 форм дієслова</p>
-        <ul class="scheme-list">
-          <li><b>неозначена (інфінітив)</b> — що робити? що зробити? <i>(бігти, побігти)</i></li>
-          <li><b>особова</b> — що роблю? що зробив? <i>(біжу, побіг)</i></li>
-          <li><b>безособова на -но, -то</b> — що зроблено? <i>(здолано)</i></li>
-          <li><b>дієприкметник</b> — який? <i>(здоланий)</i></li>
-          <li><b>дієприслівник</b> — що роблячи? що зробивши? <i>(біжучи, здолавши)</i></li>
-        </ul>
+    <p class="flip-hint">5 форм дієслова — торкніться картки</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">неозначена (інфінітив)</div>
+          <div class="flip-face flip-back">що робити? що зробити? <b>бігти, побігти</b></div>
+        </div>
       </div>
-      <div class="scheme-card">
-        <p class="scheme-title">Дієвідміна</p>
-        <ul class="scheme-list">
-          <li><b>I дієвідміна</b> — закінчення -е(-є)…-уть(-ють) <i>(пише — пишуть)</i></li>
-          <li><b>II дієвідміна</b> — закінчення -ить…-ать(-ять) <i>(робить — роблять)</i></li>
-          <li>Щоб визначити, постав дієслово в 3-тю особу множини</li>
-        </ul>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">особова</div>
+          <div class="flip-face flip-back">що роблю? що зробив? <b>біжу, побіг</b></div>
+        </div>
       </div>
-      <div class="scheme-card">
-        <p class="scheme-title">Спосіб дієслова</p>
-        <ul class="scheme-list">
-          <li><b>дійсний</b> — реальна дія, є час <i>(пишу, писав, писатиму)</i></li>
-          <li><b>умовний</b> — бажана/можлива дія: мин. час + б/би <i>(писав би)</i></li>
-          <li><b>наказовий</b> — наказ, прохання, побажання <i>(пиши, хай пише)</i></li>
-        </ul>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">безособова на -но, -то</div>
+          <div class="flip-face flip-back">що зроблено? <b>здолано</b></div>
+        </div>
       </div>
-      <div class="scheme-card">
-        <p class="scheme-title">Вид і час</p>
-        <ul class="scheme-list">
-          <li><b>доконаний</b> — що зробити? дія має межу й результат</li>
-          <li><b>недоконаний</b> — що робити? дія триває чи повторюється</li>
-          <li>теперішній час буває лише в недоконаного виду</li>
-        </ul>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">дієприкметник</div>
+          <div class="flip-face flip-back">який? <b>здоланий</b></div>
+        </div>
       </div>
-      <div class="scheme-card scheme-full">
-        <p class="scheme-title">Не плутай: дієприкметник і дієприслівник</p>
-        <ul class="scheme-list">
-          <li><b>дієприкметник</b> відповідає на «який?», змінюється за родом, числом і відмінком, як прикметник: <i>прочитаний, прочитана, прочитані</i></li>
-          <li><b>дієприслівник</b> відповідає на «що роблячи? що зробивши?», НЕ змінюється й означає додаткову дію: <i>читаючи, прочитавши</i></li>
-        </ul>
-      </div>
-      <div class="scheme-card scheme-full">
-        <p class="scheme-title">Не з дієсловами</p>
-        <ul class="scheme-list">
-          <li>зазвичай окремо: <i>не знати, не хотів, не прийшов</i></li>
-          <li>разом, якщо слово без «не» не вживається: <i>ненавидіти, нездужати, непокоїтися</i></li>
-          <li>разом, якщо «недо-» означає дію, виконану не повністю або нижче норми: <i>недочути, недоспати, недодивитися</i></li>
-        </ul>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">дієприслівник</div>
+          <div class="flip-face flip-back">що роблячи? що зробивши? <b>біжучи, здолавши</b></div>
+        </div>
       </div>
     </div>
+
+    <p class="flip-hint">Дієвідміна — два способи визначити</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">I</div>
+          <div class="flip-face flip-back">-уть, -ють, -е, -є: <b>пише — пишуть</b><br>інфінітив: більше нічого немає перед -ти</div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">II</div>
+          <div class="flip-face flip-back alt">-ать, -ять, -и, -і: <b>робить — роблять</b><br>інфінітив: и/і/ї або шиплячий+а перед -ти</div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">винятки</div>
+          <div class="flip-face flip-back">хотіти, сопіти, ревіти → <b>I</b><br>бігти, стояти, спати → <b>II</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint">Спосіб дієслова</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">дійсний</div>
+          <div class="flip-face flip-back">реальна дія, є час <b>пишу, писав, писатиму</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">умовний</div>
+          <div class="flip-face flip-back alt">бажана/можлива дія: мин. час + б/би <b>писав би</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">наказовий</div>
+          <div class="flip-face flip-back">наказ, прохання, побажання <b>пиши, хай пише</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint">Вид і час — теперішній час буває лише в недоконаного виду</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">доконаний</div>
+          <div class="flip-face flip-back">що зробити? <b>дія має межу й результат</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">недоконаний</div>
+          <div class="flip-face flip-back alt">що робити? <b>дія триває чи повторюється</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint">Не плутай: дієприкметник і дієприслівник</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">дієприкметник</div>
+          <div class="flip-face flip-back">«який?», змінюється за родом, числом, відмінком: <b>прочитаний, прочитана, прочитані</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">дієприслівник</div>
+          <div class="flip-face flip-back alt">«що роблячи? що зробивши?», не змінюється: <b>читаючи, прочитавши</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint">Не з дієсловами</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">зазвичай окремо</div>
+          <div class="flip-face flip-back"><b>не знати, не хотів, не прийшов</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">без «не» не вживається</div>
+          <div class="flip-face flip-back alt">разом: <b>ненавидіти</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">«недо-» = не повністю / нижче норми</div>
+          <div class="flip-face flip-back">разом: <b>недочути, недоспати, недодивитися</b></div>
+        </div>
+      </div>
+    </div>
+    <p class="flip-note">❗ Слова нездужати, непокоїтися, неславити, немає можуть писатись і окремо — залежно від значення (картки нижче).</p>
   </section>
 
   <!-- ЗАВДАННЯ 1: форми дієслова -->
@@ -463,6 +626,95 @@
     <div id="quiz8"></div>
   </section>
 
+  <!-- ДОВІДКА: тонкощі НЕ з дієсловами (флип-картки) -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">✦</div>
+      <h2 class="block-title">Тонкощі: коли «не» змінює значення слова</h2>
+    </div>
+    <p class="block-desc">Торкніться картки, щоб перевернути її й побачити пояснення чи приклад.</p>
+
+    <p class="flip-hint">Разом — стала ознака · окремо — одноразова дія</p>
+    <div class="flipgrid">
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">недобачити</div>
+          <div class="flip-face flip-back">погано мати зір — <b>стала, постійна ознака</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">не добачити</div>
+          <div class="flip-face flip-back alt">не помітити щось конкретне — <b>одна дія цього разу</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">недоїдає</div>
+          <div class="flip-face flip-back">з дитинства недоїдає — <b>постійно їсть замало</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">не доїв</div>
+          <div class="flip-face flip-back alt">не доїв сніданок, бо поспішав — <b>сьогодні не встиг</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint">Разом — окреме слово з новим значенням · окремо — звичайне заперечення</p>
+    <div class="flipgrid four">
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">нездужати</div>
+          <div class="flip-face flip-back"><b>хворіти</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">непокоїтися</div>
+          <div class="flip-face flip-back"><b>хвилюватися</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">неславити</div>
+          <div class="flip-face flip-back"><b>ганьбити</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">немає</div>
+          <div class="flip-face flip-back"><b>= нема</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">не здужати</div>
+          <div class="flip-face flip-back alt"><b>не змогти</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">не покоїтися</div>
+          <div class="flip-face flip-back alt"><b>не бути похованим</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">не славити</div>
+          <div class="flip-face flip-back alt"><b>не прославляти</b></div>
+        </div>
+      </div>
+      <div class="flipcard">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">не має</div>
+          <div class="flip-face flip-back alt"><b>≠ нема</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ЗАВДАННЯ 9: не з дієсловами -->
   <section class="block">
     <div class="block-head">
@@ -537,14 +789,14 @@ function renderQuiz(containerId, questions, opts={}){
 renderQuiz('quiz1', [
   {
     prompt:'<b>Малювати</b> акварельними фарбами — справжнє мистецтво.',
-    options:['Неозначена форма (інфінітив)','Особова форма','Дієприслівник'],
-    correctIndex:0,
+    options:['Особова форма','Неозначена форма (інфінітив)','Дієприслівник'],
+    correctIndex:1,
     explain:'Відповідає на питання «що робити?», не вказує ні на особу, ні на час, — це інфінітив.'
   },
   {
     prompt:'Вона щодня <b>малює</b> нові ескізи в альбомі.',
-    options:['Особова форма','Неозначена форма','Дієприкметник'],
-    correctIndex:0,
+    options:['Неозначена форма','Дієприкметник','Особова форма'],
+    correctIndex:2,
     explain:'Відповідає на питання «що робить?», вказує на особу (вона) і час (теперішній), — це особова форма.'
   },
   {
@@ -555,40 +807,40 @@ renderQuiz('quiz1', [
   },
   {
     prompt:'До відкриття виставки все приміщення вже <b>прибрано</b>.',
-    options:['Безособова форма на -но, -то','Дієприкметник','Особова форма'],
-    correctIndex:0,
+    options:['Дієприкметник','Безособова форма на -но, -то','Особова форма'],
+    correctIndex:1,
     explain:'Відповідає на питання «що зроблено?» і не має ні особи, ні роду — це безособова форма на -но, -то.'
   },
   {
     prompt:'<b>Малюючи</b> портрет, художник ретельно добирав відтінки.',
-    options:['Дієприслівник','Дієприкметник','Особова форма'],
-    correctIndex:0,
+    options:['Дієприкметник','Особова форма','Дієприслівник'],
+    correctIndex:2,
     explain:'Відповідає на питання «що роблячи?» і позначає додаткову дію — це дієприслівник.'
   },
   {
     prompt:'Друзі домовилися <b>зустрітися</b> ввечері біля кінотеатру.',
-    options:['Неозначена форма (інфінітив)','Особова форма','Дієприслівник'],
-    correctIndex:0,
+    options:['Особова форма','Неозначена форма (інфінітив)','Дієприслівник'],
+    correctIndex:1,
     explain:'Відповідає на питання «що зробити?» і не змінюється за особами — це інфінітив.'
   }
 ]);
 
 /* ---------- ЗАВДАННЯ 2: дієвідміна ---------- */
 renderQuiz('quiz2', [
-  {prompt:'<b>Пише</b> (вони пишуть)', options:['I дієвідміна','II дієвідміна'], correctIndex:0, explain:'У 3-й особі множини закінчення -уть — I дієвідміна.'},
-  {prompt:'<b>Носить</b> (вони носять)', options:['II дієвідміна','I дієвідміна'], correctIndex:0, explain:'У 3-й особі множини закінчення -ять — II дієвідміна.'},
-  {prompt:'<b>Росте</b> (вони ростуть)', options:['I дієвідміна','II дієвідміна'], correctIndex:0, explain:'У 3-й особі множини закінчення -уть — I дієвідміна.'},
-  {prompt:'<b>Просить</b> (вони просять)', options:['II дієвідміна','I дієвідміна'], correctIndex:0, explain:'У 3-й особі множини закінчення -ять — II дієвідміна.'},
-  {prompt:'<b>Будує</b> (вони будують)', options:['I дієвідміна','II дієвідміна'], correctIndex:0, explain:'У 3-й особі множини закінчення -ють — I дієвідміна.'},
-  {prompt:'<b>Любить</b> (вони люблять)', options:['II дієвідміна','I дієвідміна'], correctIndex:0, explain:'У 3-й особі множини закінчення -ять — II дієвідміна.'}
+  {prompt:'<b>Пише</b>', options:['II дієвідміна','I дієвідміна'], correctIndex:1, explain:'У 3-й особі множини — «вони пишуть», закінчення -уть — I дієвідміна.'},
+  {prompt:'<b>Носить</b>', options:['II дієвідміна','I дієвідміна'], correctIndex:0, explain:'У 3-й особі множини — «вони носять», закінчення -ять — II дієвідміна.'},
+  {prompt:'<b>Росте</b>', options:['I дієвідміна','II дієвідміна'], correctIndex:0, explain:'У 3-й особі множини — «вони ростуть», закінчення -уть — I дієвідміна.'},
+  {prompt:'<b>Просить</b>', options:['I дієвідміна','II дієвідміна'], correctIndex:1, explain:'У 3-й особі множини — «вони просять», закінчення -ять — II дієвідміна.'},
+  {prompt:'<b>Будує</b>', options:['II дієвідміна','I дієвідміна'], correctIndex:1, explain:'У 3-й особі множини — «вони будують», закінчення -ють — I дієвідміна.'},
+  {prompt:'<b>Любить</b>', options:['II дієвідміна','I дієвідміна'], correctIndex:0, explain:'У 3-й особі множини — «вони люблять», закінчення -ять — II дієвідміна.'}
 ], {grid2:true});
 
 /* ---------- ЗАВДАННЯ 3: спосіб дієслова ---------- */
 renderQuiz('quiz3', [
   {
     prompt:'<b>Прочитай</b> цю статтю до завтра, будь ласка.',
-    options:['Наказовий спосіб','Умовний спосіб','Дійсний спосіб'],
-    correctIndex:0,
+    options:['Умовний спосіб','Дійсний спосіб','Наказовий спосіб'],
+    correctIndex:2,
     explain:'Дієслово виражає прохання/наказ — це наказовий спосіб.'
   },
   {
@@ -599,20 +851,20 @@ renderQuiz('quiz3', [
   },
   {
     prompt:'Учора ми <b>ходили</b> у похід у гори.',
-    options:['Дійсний спосіб','Умовний спосіб','Наказовий спосіб'],
-    correctIndex:0,
+    options:['Умовний спосіб','Дійсний спосіб','Наказовий спосіб'],
+    correctIndex:1,
     explain:'Дієслово називає реальну дію в минулому часі — це дійсний спосіб.'
   },
   {
     prompt:'<b>Не спізнюйся</b> завтра на тренування!',
-    options:['Наказовий спосіб','Дійсний спосіб','Умовний спосіб'],
-    correctIndex:0,
+    options:['Дійсний спосіб','Умовний спосіб','Наказовий спосіб'],
+    correctIndex:2,
     explain:'Дієслово виражає застереження, спонукання до дії — це наказовий спосіб.'
   },
   {
     prompt:'Я обов’язково <b>закінчу</b> цей проєкт до кінця тижня.',
-    options:['Дійсний спосіб','Умовний спосіб','Наказовий спосіб'],
-    correctIndex:0,
+    options:['Умовний спосіб','Дійсний спосіб','Наказовий спосіб'],
+    correctIndex:1,
     explain:'Реальна дія в майбутньому часі, без частки «би», — дійсний спосіб.'
   },
   {
@@ -627,26 +879,26 @@ renderQuiz('quiz3', [
 renderQuiz('quiz4', [
   {
     prompt:'Крига поступово <b>танула</b> на весняному сонці.',
-    options:['Недоконаний вид, минулий час','Доконаний вид, минулий час','Недоконаний вид, теперішній час','Доконаний вид, теперішній час'],
-    correctIndex:0,
+    options:['Доконаний вид, минулий час','Недоконаний вид, теперішній час','Недоконаний вид, минулий час','Доконаний вид, теперішній час'],
+    correctIndex:2,
     explain:'Дія тривала поступово, без завершеності, — недоконаний вид; відбувалась у минулому — минулий час.'
   },
   {
     prompt:'Раптом крига <b>розтанула</b>, і струмок побіг з гори.',
-    options:['Доконаний вид, минулий час','Недоконаний вид, минулий час','Доконаний вид, майбутній час','Недоконаний вид, майбутній час'],
-    correctIndex:0,
+    options:['Недоконаний вид, минулий час','Доконаний вид, майбутній час','Недоконаний вид, майбутній час','Доконаний вид, минулий час'],
+    correctIndex:3,
     explain:'Дія одномоментна й завершена (є результат) — доконаний вид; уже сталася — минулий час.'
   },
   {
     prompt:'Щовесни річка <b>розливається</b> і затоплює прибережні луки.',
-    options:['Недоконаний вид, теперішній час','Доконаний вид, теперішній час','Недоконаний вид, майбутній час','Доконаний вид, майбутній час'],
-    correctIndex:0,
+    options:['Доконаний вид, теперішній час','Недоконаний вид, теперішній час','Недоконаний вид, майбутній час','Доконаний вид, майбутній час'],
+    correctIndex:1,
     explain:'Дія повторювана щороку, без завершеності, — недоконаний вид; узагальнене теперішнє — теперішній час.'
   },
   {
     prompt:'Наступного літа ми обов’язково <b>розіб’ємо</b> новий намет на березі озера.',
-    options:['Доконаний вид, майбутній час','Недоконаний вид, майбутній час','Доконаний вид, минулий час','Недоконаний вид, минулий час'],
-    correctIndex:0,
+    options:['Недоконаний вид, майбутній час','Доконаний вид, минулий час','Доконаний вид, майбутній час','Недоконаний вид, минулий час'],
+    correctIndex:2,
     explain:'Дія матиме конкретний результат — доконаний вид; стосується наступного літа — майбутній час.'
   },
   {
@@ -657,8 +909,8 @@ renderQuiz('quiz4', [
   },
   {
     prompt:'Учені й досі <b>досліджують</b> цей рідкісний вид метеликів.',
-    options:['Недоконаний вид, теперішній час','Доконаний вид, теперішній час','Недоконаний вид, майбутній час','Доконаний вид, майбутній час'],
-    correctIndex:0,
+    options:['Доконаний вид, теперішній час','Недоконаний вид, майбутній час','Доконаний вид, майбутній час','Недоконаний вид, теперішній час'],
+    correctIndex:3,
     explain:'«Досі» підкреслює, що дія триває й не завершена, — недоконаний вид, теперішній час.'
   }
 ], {grid2:true});
@@ -667,8 +919,8 @@ renderQuiz('quiz4', [
 renderQuiz('quiz5', [
   {
     prompt:'<b>Задоволений</b> результатом, тренер потиснув гравцям руки.',
-    options:['Дієприкметник','Дієприслівник','Прикметник'],
-    correctIndex:0,
+    options:['Дієприслівник','Дієприкметник','Прикметник'],
+    correctIndex:1,
     explain:'Відповідає на питання «який?» і узгоджується з іменником «тренер» — дієприкметник.'
   },
   {
@@ -679,14 +931,14 @@ renderQuiz('quiz5', [
   },
   {
     prompt:'<b>Стомлені</b> тривалою грою, футболісти повільно йшли до автобуса.',
-    options:['Дієприкметник','Дієприслівник','Прикметник'],
-    correctIndex:0,
+    options:['Дієприслівник','Прикметник','Дієприкметник'],
+    correctIndex:2,
     explain:'Відповідає на питання «які?» і узгоджується в числі з «футболісти» — дієприкметник.'
   },
   {
     prompt:'<b>Заплющивши</b> очі, хлопчик загадав бажання.',
-    options:['Дієприслівник','Дієприкметник','Особова форма'],
-    correctIndex:0,
+    options:['Дієприкметник','Дієприслівник','Особова форма'],
+    correctIndex:1,
     explain:'Відповідає на питання «що зробивши?» і позначає дію, яка передувала основній, — дієприслівник.'
   },
   {
@@ -697,8 +949,8 @@ renderQuiz('quiz5', [
   },
   {
     prompt:'<b>Прочитавши</b> книжку, він одразу переказав сюжет другові.',
-    options:['Дієприслівник','Дієприкметник','Особова форма'],
-    correctIndex:0,
+    options:['Дієприкметник','Особова форма','Дієприслівник'],
+    correctIndex:2,
     explain:'Відповідає на питання «що зробивши?», позначає додаткову завершену дію — дієприслівник.'
   }
 ], {grid2:true});
@@ -707,38 +959,38 @@ renderQuiz('quiz5', [
 renderQuiz('quiz6', [
   {
     prompt:'Знайдіть зайве слово:',
-    options:['малюючи','читаючи','прочитавши','співаючи'],
-    correctIndex:2,
+    options:['прочитавши','малюючи','читаючи','співаючи'],
+    correctIndex:0,
     explain:'«Прочитавши» — дієприслівник доконаного виду (суфікс -вши), решта — недоконаного виду (суфікс -ючи).'
   },
   {
     prompt:'Знайдіть зайве слово:',
-    options:['написаний','зроблений','зачинений','малює'],
-    correctIndex:3,
+    options:['написаний','малює','зроблений','зачинений'],
+    correctIndex:1,
     explain:'«Малює» — особова форма дієслова, решта слів — дієприкметники (відповідають на «який?»).'
   },
   {
     prompt:'Знайдіть зайве слово:',
-    options:['бігти','стрибати','плавати','стрибнувши'],
-    correctIndex:3,
+    options:['бігти','стрибати','стрибнувши','плавати'],
+    correctIndex:2,
     explain:'«Стрибнувши» — дієприслівник, решта слів — неозначена форма (інфінітив).'
   },
   {
     prompt:'Знайдіть зайве слово:',
-    options:['робить','носить','летить','читає'],
-    correctIndex:3,
+    options:['читає','робить','носить','летить'],
+    correctIndex:0,
     explain:'«Читає» належить до I дієвідміни (читають), а решта — до II дієвідміни (роблять, носять, летять).'
   },
   {
     prompt:'Знайдіть зайве слово:',
-    options:['написав','написав би','написала','написали'],
-    correctIndex:1,
+    options:['написав','написала','написали','написав би'],
+    correctIndex:3,
     explain:'«Написав би» вжито в умовному способі (є частка «би»), решта форм — у дійсному способі.'
   },
   {
     prompt:'Знайдіть зайве слово:',
-    options:['прочитай','прочитайте','хай прочитає','прочитав'],
-    correctIndex:3,
+    options:['прочитай','прочитав','прочитайте','хай прочитає'],
+    correctIndex:1,
     explain:'«Прочитав» — форма дійсного способу минулого часу, решта слів — форми наказового способу.'
   }
 ], {grid2:true});
@@ -747,26 +999,26 @@ renderQuiz('quiz6', [
 renderQuiz('quiz8', [
   {
     prompt:'Яку форму має слово «усміхаючись» у другому абзаці?',
-    options:['Дієприслівник недоконаного виду','Дієприслівник доконаного виду','Дієприкметник'],
-    correctIndex:0,
+    options:['Дієприслівник доконаного виду','Дієприслівник недоконаного виду','Дієприкметник'],
+    correctIndex:1,
     explain:'Суфікс -ючи вказує на дієприслівник недоконаного виду: дія відбувається одночасно з бігом.'
   },
   {
     prompt:'Яку форму має слово «зосередившись» у третьому абзаці?',
-    options:['Дієприслівник доконаного виду','Дієприслівник недоконаного виду','Особова форма'],
-    correctIndex:0,
+    options:['Дієприслівник недоконаного виду','Особова форма','Дієприслівник доконаного виду'],
+    correctIndex:2,
     explain:'Суфікс -вши вказує на дієприслівник доконаного виду: дія завершилася перед основною.'
   },
   {
     prompt:'У реченні «Не зупиняйся! Тримай темп!» дієслова вжито у…',
-    options:['наказовому способі','умовному способі','дійсному способі'],
-    correctIndex:0,
+    options:['умовному способі','наказовому способі','дійсному способі'],
+    correctIndex:1,
     explain:'Обидва дієслова виражають спонукання до дії — це наказовий спосіб.'
   },
   {
     prompt:'У фразі «якби він тоді здався, то шкодував би» дієслово «шкодував би» стоїть у…',
-    options:['умовному способі','дійсному способі','наказовому способі'],
-    correctIndex:0,
+    options:['дійсному способі','наказовому способі','умовному способі'],
+    correctIndex:2,
     explain:'Дія залежить від умови й утворена часткою «би» — умовний спосіб.'
   },
   {
@@ -783,13 +1035,18 @@ renderQuiz('quiz8', [
   }
 ]);
 
+/* ---------- флип-картки: клік перевертає ---------- */
+document.querySelectorAll('.flipcard').forEach(card=>{
+  card.addEventListener('click', ()=> card.classList.toggle('flipped'));
+});
+
 /* ---------- ЗАВДАННЯ 9: не з дієсловами ---------- */
 renderQuiz('quiz9', [
-  {prompt:'Він постійно (не)хтував порадами старших.', options:['нехтував','не хтував'], correctIndex:0, explain:'«Нехтувати» без «не» не вживається, тому пишемо разом.'},
+  {prompt:'Він постійно (не)хтував порадами старших.', options:['не хтував','нехтував'], correctIndex:1, explain:'«Нехтувати» без «не» не вживається, тому пишемо разом.'},
   {prompt:'Друзі (не)дочекалися дощу і пішли додому раніше.', options:['недочекалися','не дочекалися'], correctIndex:0, explain:'Префікс «недо-» означає дію, не доведену до кінця, тому пишемо разом.'},
-  {prompt:'Я сьогодні (не)хочу йти на тренування.', options:['не хочу','нехочу'], correctIndex:0, explain:'Звичайне заперечення дії — «не» з дієсловом пишемо окремо.'},
+  {prompt:'Я сьогодні (не)хочу йти на тренування.', options:['нехочу','не хочу'], correctIndex:1, explain:'Звичайне заперечення дії — «не» з дієсловом пишемо окремо.'},
   {prompt:'Хлопчик постійно (не)докладав зусиль, щоб перемогти лінь.', options:['недокладав','не докладав'], correctIndex:0, explain:'«Недо-» тут означає дію нижче норми (докладав недостатньо), тож пишемо разом.'},
-  {prompt:'Вона (не)знала правильної відповіді на це запитання.', options:['не знала','незнала'], correctIndex:0, explain:'Звичайне заперечення — пишемо окремо.'},
+  {prompt:'Вона (не)знала правильної відповіді на це запитання.', options:['незнала','не знала'], correctIndex:1, explain:'Звичайне заперечення — пишемо окремо.'},
   {prompt:'Дідусь (не)навидить, коли онуки спізнюються.', options:['ненавидить','не навидить'], correctIndex:0, explain:'«Ненавидіти» без «не» не вживається, тому пишемо разом.'}
 ]);
 </script>
