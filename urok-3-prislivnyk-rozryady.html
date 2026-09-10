@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3. Розряди прислівників за значенням · Урок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EAD6D6;
+    --bg-soft:#F6EBEA;
+    --card:#FFFFFF;
+    --ink:#341019;
+    --ink-soft:#8C5A61;
+    --line: rgba(52,16,25,0.1);
+
+    /* колір цього уроку — винно-бордова палітра */
+    --c1-a:#B25671; --c1-b:#7A1F3D; --c1-sh: rgba(122,31,61,0.45);
+    --c3-a:#D9A94C; --c3-b:#A8791E; --c3-sh: rgba(168,121,30,0.4);
+    --c2-b:#8C1F3D;
+
+    --correct-bg:#E4F1E4;
+    --correct-ink:#2E6B45;
+    --wrong-bg:#F6E1E4;
+    --wrong-ink:#8C1F3D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    padding:28px 16px 64px;
+  }
+  .wrap{max-width:820px;margin:0 auto;}
+
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:16px;
+    margin-bottom:22px;
+    border-bottom:1.5px solid rgba(52,16,25,0.14);
+  }
+  .kicker{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:12.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink);
+    opacity:.55;
+    text-decoration:none;
+  }
+  a.kicker{display:inline-flex;align-items:center;gap:6px;opacity:.7;}
+  a.kicker:hover{opacity:1;}
+
+  h1{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:clamp(24px,5.4vw,34px);
+    line-height:1.1;
+    letter-spacing:-0.01em;
+    margin:0 0 8px;
+  }
+  h1 .num{color:var(--c1-b);}
+  .sub{color:var(--ink-soft);font-size:15px;max-width:60ch;margin:0 0 30px;font-weight:500;}
+
+  .progress-wrap{
+    background:var(--card);
+    border-radius:16px;
+    padding:14px 18px;
+    margin-bottom:34px;
+    box-shadow: 0 14px 30px -24px rgba(52,16,25,0.28);
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .progress-label{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .progress-track{
+    flex:1;
+    height:8px;
+    border-radius:99px;
+    background:var(--bg-soft);
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    border-radius:99px;
+    background:linear-gradient(90deg,var(--c1-a),var(--c1-b));
+    transition:width .3s ease;
+  }
+  #score-num{color:var(--c1-b);}
+
+  section.block{
+    background:var(--card);
+    border-radius:24px;
+    padding:26px 24px 24px;
+    margin-bottom:22px;
+    box-shadow: 0 14px 30px -24px rgba(52,16,25,0.28);
+  }
+
+  .block-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .block-num{
+    width:34px;height:34px;min-width:34px;
+    border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;
+    color:#fff;
+    background:linear-gradient(150deg,var(--c1-a),var(--c1-b));
+    box-shadow:0 6px 14px -6px var(--c1-sh);
+  }
+  .block-title{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:18.5px;
+    margin:0;
+  }
+  .block-desc{
+    color:var(--ink-soft);
+    font-size:14px;
+    font-weight:500;
+    margin:0 0 18px;
+    line-height:1.5;
+  }
+
+  /* --- reference scheme (not a task) --- */
+  .ref-row{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    margin-bottom:18px;
+  }
+  .ref-row img{
+    width:120px;height:120px;
+    object-fit:cover;
+    border-radius:16px;
+    flex:none;
+    box-shadow:0 10px 22px -12px rgba(52,16,25,0.32);
+  }
+  .ref-row p{
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    margin:0;
+    font-weight:500;
+  }
+  @media (max-width:520px){
+    .ref-row{flex-direction:column;}
+    .ref-row img{width:100%;height:130px;}
+  }
+
+  /* --- quiz question --- */
+  .q{
+    margin-bottom:20px;
+    padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+  }
+  .q:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .q-prompt{
+    font-weight:700;
+    font-size:15px;
+    margin:0 0 12px;
+    line-height:1.5;
+  }
+  .q-prompt .qn{color:var(--c1-b);font-family:'Manrope',sans-serif;font-weight:800;}
+  .q-prompt b{color:var(--c2-b);}
+  .q-hint{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:500;
+    margin:-8px 0 12px;
+  }
+
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opts.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .opt{
+    text-align:left;
+    border:1.5px solid var(--line);
+    background:#fff;
+    border-radius:12px;
+    padding:11px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .12s ease;
+  }
+  .opt:hover:not(.correct):not(.wrong):not([disabled]){
+    border-color:var(--c1-b);
+    background: rgba(122,31,61,0.07);
+  }
+  .opt.correct{background:var(--correct-bg);border-color:var(--correct-ink);color:var(--correct-ink);}
+  .opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-ink);color:var(--wrong-ink);}
+  .opt[disabled]{cursor:default;}
+
+  .q-feedback{
+    margin-top:10px;
+    font-size:13.5px;
+    font-weight:600;
+    padding:10px 13px;
+    border-radius:10px;
+    display:none;
+    line-height:1.5;
+  }
+  .q-feedback.show{display:block;}
+  .q-feedback.ok{background:var(--correct-bg);color:var(--correct-ink);}
+  .q-feedback.bad{background:var(--wrong-bg);color:var(--wrong-ink);}
+
+  /* --- reading text with photo --- */
+  .reading{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    margin-bottom:16px;
+  }
+  .reading img{
+    width:150px;height:150px;
+    object-fit:cover;
+    flex:none;border-radius:16px;
+    box-shadow:0 10px 22px -12px rgba(52,16,25,0.32);
+  }
+  .passage{
+    background:var(--bg-soft);
+    border-radius:16px;
+    padding:16px 18px;
+    font-size:14.5px;
+    line-height:1.95;
+    flex:1;
+  }
+  .passage p{margin:0 0 10px;}
+  .passage p:last-child{margin-bottom:0;}
+  .passage .title{
+    display:block;
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--c1-b);
+    margin-bottom:10px;
+  }
+  .photo-credit{font-size:11px;color:var(--ink-soft);opacity:.7;margin:-10px 0 16px;text-align:right;}
+  @media (max-width:520px){
+    .reading{flex-direction:column;}
+    .reading img{width:100%;max-width:280px;height:170px;margin:0 auto;}
+  }
+
+  /* --- flip cards (правило ↔ приклад) --- */
+  .flip-note{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:600;
+    line-height:1.5;
+    margin:-8px 0 22px;
+  }
+  .flip-hint{
+    font-size:12px;
+    color:var(--ink-soft);
+    opacity:.8;
+    font-weight:700;
+    margin:0 0 10px;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+  }
+  .flipgrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+    gap:12px;
+    margin-bottom:22px;
+  }
+  .flipgrid:last-child{margin-bottom:0;}
+  .flipcard{
+    perspective:1000px;
+    height:96px;
+    cursor:pointer;
+  }
+  .flipcard.tall{height:120px;}
+  .flip-inner{
+    position:relative;
+    width:100%;height:100%;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+  }
+  .flipcard.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-face{
+    position:absolute;inset:0;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    border-radius:14px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:10px 12px;
+  }
+  .flip-front{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:14.5px;
+    color:#fff;
+    background:linear-gradient(150deg,var(--c1-a),var(--c1-b));
+    box-shadow:0 10px 20px -12px var(--c1-sh);
+  }
+  .flipcard.tall .flip-front{font-size:13px;line-height:1.3;}
+  .flip-front.alt{
+    background:linear-gradient(150deg,var(--c3-a),var(--c3-b));
+    box-shadow:0 10px 20px -12px var(--c3-sh);
+  }
+  .flip-back{
+    transform:rotateY(180deg);
+    background:var(--bg-soft);
+    color:var(--ink);
+    font-size:12.5px;
+    font-weight:600;
+    line-height:1.45;
+    border:1.5px solid var(--line);
+  }
+  .flipcard.tall .flip-back{font-size:11.5px;line-height:1.4;}
+  .flip-back b{color:var(--c1-b);}
+  .flip-back.alt b{color:var(--c3-b);}
+
+  footer{
+    text-align:center;
+    margin-top:36px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="kicker" href="index.html">← До всіх уроків</a>
+    <div class="kicker">8 клас · Повторення</div>
+  </div>
+
+  <h1><span class="num">3.</span> Розряди прислівників за значенням</h1>
+  <p class="sub">Означальні й обставинні прислівники, сім розрядів, питання до кожного з них — і практика на розпізнавання в реченні та в тексті.</p>
+
+  <div class="progress-wrap">
+    <span class="progress-label">Результат: <span id="score-num">0</span>/<span id="score-total">0</span></span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <!-- ДОВІДКА (флип-картки) -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">✦</div>
+      <h2 class="block-title">Пригадаймо</h2>
+    </div>
+    <p class="block-desc">Прислівники поділяються на сім розрядів за значенням: означальні (характеризують саму дію чи ознаку) і ті, що вказують на обставини дії — місце, час, причину, мету. Торкніться картки, щоб побачити питання й приклади.</p>
+    <div class="ref-row">
+      <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?fm=jpg&q=70&w=400&auto=format&fit=crop" alt="Стежка в горах, що веде вгору">
+      <p>Прислівник — незмінна частина мови, яка найчастіше пояснює дієслово. Одні прислівники описують саму якість дії («як?»), інші — обставини навколо неї («де?», «коли?», «чому?», «навіщо?»). Саме за цим і розрізняють розряди.</p>
+    </div>
+
+    <p class="flip-hint">Означальні прислівники</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">означальні (утворені від прикметників)</div>
+          <div class="flip-face flip-back">Як? <b>радісно, сонячно, швидко</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">способу дії</div>
+          <div class="flip-face flip-back">Як? Яким способом? <b>верхи, пішки, гуртом, уголос, напам'ять</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">міри і ступеня дії</div>
+          <div class="flip-face flip-back">Скільки? Наскільки? Якою мірою? <b>дуже, трохи, занадто, надмірно, двічі</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint">Обставинні прислівники</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">місця дії</div>
+          <div class="flip-face flip-back alt">Де? Куди? Звідки? <b>удома, усюди, навколо, неподалік, скраю, знизу</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">часу дії</div>
+          <div class="flip-face flip-back alt">Коли? Відколи? До якого часу? <b>восени, увечері, давно, віддавна</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">причини дії</div>
+          <div class="flip-face flip-back alt">Чому? З якої причини? <b>згаряча, спересердя, спросоння, зопалу</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">мети дії</div>
+          <div class="flip-face flip-back alt">З якою метою? Для чого? <b>навмисне, на зло, напоказ</b></div>
+        </div>
+      </div>
+    </div>
+    <p class="flip-note">❗ Деякі прислівники (соромно, спекотно, потрібно) означають стан людини чи природи і в реченні можуть самі бути присудком: «Мені сумно».</p>
+  </section>
+
+  <!-- ЗАВДАННЯ 1: означальний чи обставинний -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">1</div>
+      <h2 class="block-title">Означальний чи обставинний?</h2>
+    </div>
+    <p class="block-desc">Визначте загальну групу виділеного прислівника.</p>
+    <div id="quiz1"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 2: якому розряду належить -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">2</div>
+      <h2 class="block-title">Якому розряду належить прислівник?</h2>
+    </div>
+    <p class="block-desc">Тепер точніше: визначте один із семи розрядів.</p>
+    <div id="quiz2"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 3: питання -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">3</div>
+      <h2 class="block-title">На яке питання відповідає розряд?</h2>
+    </div>
+    <p class="block-desc">До кожного розряду дібрано питання. Визначте, який це розряд.</p>
+    <div id="quiz3"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 4: третє зайве -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">4</div>
+      <h2 class="block-title">Знайдіть зайве слово</h2>
+    </div>
+    <p class="block-desc">У кожному рядку три прислівники одного розряду, а один — «зайвий». Знайдіть його.</p>
+    <div id="quiz4"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 5: текст -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">5</div>
+      <h2 class="block-title">Читаємо: «Несподівана мандрівка»</h2>
+    </div>
+    <p class="block-desc">Прочитайте текст уважно — наступне завдання побудоване саме на ньому.</p>
+    <div class="reading">
+      <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?fm=jpg&q=75&w=500&auto=format&fit=crop" alt="Двоє мандрівників на гірській стежці">
+      <div class="passage">
+        <span class="title">Несподівана мандрівка</span>
+        <p>Дідусь <b>раптово</b> запропонував піти в похід у гори. Валя зраділа й <b>швидко</b> зібрала рюкзак. Вирушили вони <b>рано-вранці</b>, поки місто ще спало.</p>
+        <p>Стежка вела <b>вгору</b>, і <b>дуже</b> скоро в дівчинки заболіли ноги. «Ми йдемо <b>пішки</b> вже дві години, а вершина все не ближче!» — поскаржилась вона. Дідусь усміхнувся: маршрут він обрав довший <b>навмисне</b> — щоб показати найкращий краєвид.</p>
+        <p>Коли вони нарешті дісталися вершини, перед Валею відкрився неймовірний краєвид, і дівчинка забула про втому. «Варто було йти», — подумала вона, милуючись горами.</p>
+        <p>Додому поверталися <b>надвечір</b>, стомлені, але щасливі. Валя зрозуміла: найкращі враження часто здобуваються найважчим шляхом.</p>
+      </div>
+    </div>
+    <div class="photo-credit">Фото: Unsplash</div>
+  </section>
+
+  <!-- ЗАВДАННЯ 6: за текстом -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">6</div>
+      <h2 class="block-title">Завдання за текстом</h2>
+    </div>
+    <p class="block-desc">Спираючись на текст «Несподівана мандрівка», дайте відповіді на запитання.</p>
+    <div id="quiz6"></div>
+  </section>
+
+  <footer>@movoznavka · Урок 3 · 8 клас</footer>
+</div>
+
+<script>
+/* ============================================================
+   Загальний рушій тестів. Кожне питання:
+   { prompt, options:[...], correctIndex, explain }
+   Рендериться в контейнер через renderQuiz().
+   ============================================================ */
+
+let TOTAL = 0, SCORE = 0;
+function bump(correct){
+  TOTAL++; if(correct) SCORE++;
+  document.getElementById('score-num').textContent = SCORE;
+  document.getElementById('score-total').textContent = TOTAL;
+}
+function updateBar(){
+  const total = window.__totalQuestions || 1;
+  const done = window.__answeredQuestions || 0;
+  document.getElementById('progress-fill').style.width = Math.min(100,(done/total)*100)+'%';
+}
+
+function renderQuiz(containerId, questions, opts={}){
+  const el = document.getElementById(containerId);
+  window.__totalQuestions = (window.__totalQuestions||0) + questions.length;
+  questions.forEach((q,i)=>{
+    const qDiv = document.createElement('div');
+    qDiv.className = 'q';
+    let html = `<p class="q-prompt"><span class="qn">${i+1}.</span> ${q.prompt}</p>`;
+    if(q.hint){ html += `<p class="q-hint">${q.hint}</p>`; }
+    html += `<div class="opts ${opts.grid2 ? 'grid2':''}">`;
+    q.options.forEach((opt,oi)=>{
+      html += `<button class="opt" data-i="${oi}">${opt}</button>`;
+    });
+    html += `</div><div class="q-feedback" id="fb-${containerId}-${i}"></div>`;
+    qDiv.innerHTML = html;
+    el.appendChild(qDiv);
+
+    qDiv.querySelectorAll('.opt').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(qDiv.dataset.answered) return;
+        qDiv.dataset.answered = '1';
+        const chosen = parseInt(btn.dataset.i);
+        const correct = chosen === q.correctIndex;
+        qDiv.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+        btn.classList.add(correct?'correct':'wrong');
+        if(!correct){
+          qDiv.querySelectorAll('.opt')[q.correctIndex].classList.add('correct');
+        }
+        const fb = document.getElementById(`fb-${containerId}-${i}`);
+        fb.textContent = (correct? '✓ Правильно! ' : '✗ Неправильно. ') + (q.explain||'');
+        fb.className = 'q-feedback show ' + (correct?'ok':'bad');
+        bump(correct);
+        window.__answeredQuestions = (window.__answeredQuestions||0)+1;
+        updateBar();
+      });
+    });
+  });
+}
+
+/* ---------- флип-картки: клік перевертає ---------- */
+document.querySelectorAll('.flipcard').forEach(card=>{
+  card.addEventListener('click', ()=> card.classList.toggle('flipped'));
+});
+
+/* ---------- ЗАВДАННЯ 1: означальний чи обставинний ---------- */
+renderQuiz('quiz1', [
+  {
+    prompt:'Він працював над проєктом <b>старанно</b>.',
+    options:['Обставинний','Означальний'],
+    correctIndex:1,
+    explain:'Слово відповідає на питання «як?» і характеризує саму дію — означальний.'
+  },
+  {
+    prompt:'Ми зустрінемось <b>завтра</b> біля школи.',
+    options:['Означальний','Обставинний'],
+    correctIndex:1,
+    explain:'Слово вказує на час дії («коли?») — обставинний (часу дії).'
+  },
+  {
+    prompt:'Дівчинка <b>дуже</b> втомилася після тренування.',
+    options:['Обставинний','Означальний'],
+    correctIndex:1,
+    explain:'Слово відповідає на питання «наскільки?» і показує міру ознаки — означальний (міри і ступеня дії).'
+  },
+  {
+    prompt:'Хлопці пішли <b>туди</b>, де починався ліс.',
+    options:['Обставинний','Означальний'],
+    correctIndex:0,
+    explain:'Слово вказує на напрямок руху («куди?») — обставинний (місця дії).'
+  },
+  {
+    prompt:'Він розбив вазу <b>навмисне</b>.',
+    options:['Означальний','Обставинний'],
+    correctIndex:1,
+    explain:'Слово пояснює мету дії («навіщо?») — обставинний (мети дії).'
+  },
+  {
+    prompt:'<b>Спросоння</b> він переплутав двері.',
+    options:['Обставинний','Означальний'],
+    correctIndex:0,
+    explain:'Слово вказує на причину дії («чому?») — обставинний (причини дії).'
+  }
+]);
+
+/* ---------- ЗАВДАННЯ 2: якому розряду належить ---------- */
+renderQuiz('quiz2', [
+  {
+    prompt:'Учень писав у зошиті <b>охайно</b>.',
+    options:['міри і ступеня дії','означальний (від прикметника)','способу дії'],
+    correctIndex:1,
+    explain:'Відповідає на питання «як?» і характеризує якість дії — означальний, утворений від прикметника.'
+  },
+  {
+    prompt:'Вона повторила вправу <b>двічі</b>.',
+    options:['способу дії','часу дії','міри і ступеня дії'],
+    correctIndex:2,
+    explain:'Відповідає на питання «скільки разів?» — міри і ступеня дії.'
+  },
+  {
+    prompt:'Солдати йшли <b>пішки</b> через ліс.',
+    options:['означальний (від прикметника)','способу дії','місця дії'],
+    correctIndex:1,
+    explain:'Вказує, яким способом відбувається рух, — способу дії.'
+  },
+  {
+    prompt:'Ми зустрінемось <b>опівдні</b>.',
+    options:['місця дії','причини дії','часу дії'],
+    correctIndex:2,
+    explain:'Відповідає на питання «коли?» — часу дії.'
+  },
+  {
+    prompt:'Кіт заліз <b>нагору</b> на шафу.',
+    options:['місця дії','мети дії','часу дії'],
+    correctIndex:0,
+    explain:'Відповідає на питання «куди?» — місця дії.'
+  },
+  {
+    prompt:'Він зробив це <b>назло</b> сусідові.',
+    options:['причини дії','часу дії','мети дії'],
+    correctIndex:2,
+    explain:'Відповідає на питання «навіщо?», «з якою метою?» — мети дії.'
+  }
+]);
+
+/* ---------- ЗАВДАННЯ 3: на яке питання відповідає ---------- */
+renderQuiz('quiz3', [
+  {
+    prompt:'Прислівник відповідає на питання «З якою метою? Для чого?» — це розряд...',
+    options:['причини дії','мети дії','часу дії'],
+    correctIndex:1,
+    explain:'Питання «з якою метою? для чого?» — ознака розряду мети дії.'
+  },
+  {
+    prompt:'Прислівник відповідає на питання «Чому? З якої причини?» — це розряд...',
+    options:['мети дії','місця дії','причини дії'],
+    correctIndex:2,
+    explain:'Питання «чому? з якої причини?» — ознака розряду причини дії.'
+  },
+  {
+    prompt:'Прислівник відповідає на питання «Скільки? Наскільки? Якою мірою?» — це розряд...',
+    options:['міри і ступеня дії','означальний (від прикметника)','часу дії'],
+    correctIndex:0,
+    explain:'Питання про кількість чи міру — ознака розряду міри і ступеня дії.'
+  },
+  {
+    prompt:'Прислівник відповідає на питання «Де? Куди? Звідки?» — це розряд...',
+    options:['часу дії','місця дії','способу дії'],
+    correctIndex:1,
+    explain:'Питання про напрямок і місце — ознака розряду місця дії.'
+  },
+  {
+    prompt:'Прислівник відповідає на питання «Коли? Відколи? До якого часу?» — це розряд...',
+    options:['причини дії','мети дії','часу дії'],
+    correctIndex:2,
+    explain:'Питання про момент дії — ознака розряду часу дії.'
+  },
+  {
+    prompt:'Прислівник відповідає на питання «Як? Яким способом?» — це розряд...',
+    options:['способу дії','означальний (від прикметника)','місця дії'],
+    correctIndex:0,
+    explain:'Питання про спосіб виконання дії — ознака розряду способу дії.'
+  }
+]);
+
+/* ---------- ЗАВДАННЯ 4: третє зайве ---------- */
+renderQuiz('quiz4', [
+  {
+    prompt:'Знайдіть зайве слово:',
+    options:['дуже','вчора','сьогодні','навіки'],
+    correctIndex:0,
+    explain:'«Дуже» — розряд міри і ступеня дії, решта слів — часу дії.'
+  },
+  {
+    prompt:'Знайдіть зайве слово:',
+    options:['верхи','дуже','пішки','гуртом'],
+    correctIndex:1,
+    explain:'«Дуже» — розряд міри і ступеня дії, решта слів — способу дії.'
+  },
+  {
+    prompt:'Знайдіть зайве слово:',
+    options:['спросоння','спересердя','вчора','зопалу'],
+    correctIndex:2,
+    explain:'«Вчора» — розряд часу дії, решта слів — причини дії.'
+  },
+  {
+    prompt:'Знайдіть зайве слово:',
+    options:['назло','напоказ','навмисне','ледве'],
+    correctIndex:3,
+    explain:'«Ледве» — розряд міри і ступеня дії, решта слів — мети дії.'
+  },
+  {
+    prompt:'Знайдіть зайве слово:',
+    options:['туди','двічі','усюди','знизу'],
+    correctIndex:1,
+    explain:'«Двічі» — розряд міри і ступеня дії, решта слів — місця дії.'
+  },
+  {
+    prompt:'Знайдіть зайве слово:',
+    options:['трохи','ледве','пішки','дуже'],
+    correctIndex:2,
+    explain:'«Пішки» — розряд способу дії, решта слів — міри і ступеня дії.'
+  }
+], {grid2:true});
+
+/* ---------- ЗАВДАННЯ 6: за текстом ---------- */
+renderQuiz('quiz6', [
+  {
+    prompt:'До якого розряду належить слово «раптово» в першому реченні?',
+    options:['міри і ступеня дії','часу дії','означальний (від прикметника)'],
+    correctIndex:2,
+    explain:'Слово відповідає на питання «як?» і характеризує саму дію — означальний.'
+  },
+  {
+    prompt:'На яке питання відповідає слово «рано-вранці»?',
+    options:['Де?','Коли?','Навіщо?'],
+    correctIndex:1,
+    explain:'«Рано-вранці» вказує на час дії — питання «коли?».'
+  },
+  {
+    prompt:'Яким розрядом є слово «пішки»?',
+    options:['способу дії','місця дії','причини дії'],
+    correctIndex:0,
+    explain:'Слово вказує, яким способом рухалися герої, — способу дії.'
+  },
+  {
+    prompt:'Чому, за текстом, дідусь обрав довший маршрут?',
+    options:['бо заблукав','щоб показати найкращий краєвид','бо хотів відпочити'],
+    correctIndex:1,
+    explain:'У тексті прямо сказано: маршрут він обрав довший навмисне — щоб показати найкращий краєвид.'
+  },
+  {
+    prompt:'Слово «навмисне» в тексті — якого розряду?',
+    options:['мети дії','причини дії','часу дії'],
+    correctIndex:0,
+    explain:'Слово відповідає на питання «навіщо?» — розряд мети дії.'
+  },
+  {
+    prompt:'Коли, за текстом, мандрівники поверталися додому?',
+    options:['опівдні','вранці','надвечір'],
+    correctIndex:2,
+    explain:'У тексті сказано: «Додому поверталися надвечір».'
+  }
+]);
+</script>
+</body>
+</html>

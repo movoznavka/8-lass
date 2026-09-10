@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4. Правопис прислівників · Урок</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#D8EDE5;
+    --bg-soft:#EFF8F4;
+    --card:#FFFFFF;
+    --ink:#123529;
+    --ink-soft:#5C8577;
+    --line: rgba(18,53,41,0.1);
+
+    /* колір цього уроку — смарагдово-бірюзова палітра */
+    --c1-a:#4FB3A0; --c1-b:#0E7C68; --c1-sh: rgba(14,124,104,0.45);
+    --c3-a:#E8A54C; --c3-b:#B4722A; --c3-sh: rgba(180,114,42,0.4);
+    --c2-b:#B23A2E;
+
+    --correct-bg:#E4F1E4;
+    --correct-ink:#2E6B45;
+    --wrong-bg:#FBE7E4;
+    --wrong-ink:#B23A2E;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    padding:28px 16px 64px;
+  }
+  .wrap{max-width:820px;margin:0 auto;}
+
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:16px;
+    margin-bottom:22px;
+    border-bottom:1.5px solid rgba(18,53,41,0.14);
+  }
+  .kicker{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:12.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink);
+    opacity:.55;
+    text-decoration:none;
+  }
+  a.kicker{display:inline-flex;align-items:center;gap:6px;opacity:.7;}
+  a.kicker:hover{opacity:1;}
+
+  h1{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:clamp(24px,5.4vw,34px);
+    line-height:1.1;
+    letter-spacing:-0.01em;
+    margin:0 0 8px;
+  }
+  h1 .num{color:var(--c1-b);}
+  .sub{color:var(--ink-soft);font-size:15px;max-width:60ch;margin:0 0 30px;font-weight:500;}
+
+  .progress-wrap{
+    background:var(--card);
+    border-radius:16px;
+    padding:14px 18px;
+    margin-bottom:34px;
+    box-shadow: 0 14px 30px -24px rgba(18,53,41,0.26);
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+  .progress-label{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .progress-track{
+    flex:1;
+    height:8px;
+    border-radius:99px;
+    background:var(--bg-soft);
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    border-radius:99px;
+    background:linear-gradient(90deg,var(--c1-a),var(--c1-b));
+    transition:width .3s ease;
+  }
+  #score-num{color:var(--c1-b);}
+
+  section.block{
+    background:var(--card);
+    border-radius:24px;
+    padding:26px 24px 24px;
+    margin-bottom:22px;
+    box-shadow: 0 14px 30px -24px rgba(18,53,41,0.26);
+  }
+
+  .block-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:6px;
+  }
+  .block-num{
+    width:34px;height:34px;min-width:34px;
+    border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;
+    color:#fff;
+    background:linear-gradient(150deg,var(--c1-a),var(--c1-b));
+    box-shadow:0 6px 14px -6px var(--c1-sh);
+  }
+  .block-title{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:18.5px;
+    margin:0;
+  }
+  .block-desc{
+    color:var(--ink-soft);
+    font-size:14px;
+    font-weight:500;
+    margin:0 0 18px;
+    line-height:1.5;
+  }
+
+  /* --- reference scheme (not a task) --- */
+  .ref-row{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    margin-bottom:18px;
+  }
+  .ref-row img{
+    width:120px;height:120px;
+    object-fit:cover;
+    border-radius:16px;
+    flex:none;
+    box-shadow:0 10px 22px -12px rgba(18,53,41,0.3);
+  }
+  .ref-row p{
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    margin:0;
+    font-weight:500;
+  }
+  @media (max-width:520px){
+    .ref-row{flex-direction:column;}
+    .ref-row img{width:100%;height:130px;}
+  }
+
+  /* --- quiz question --- */
+  .q{
+    margin-bottom:20px;
+    padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+  }
+  .q:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .q-prompt{
+    font-weight:700;
+    font-size:15px;
+    margin:0 0 12px;
+    line-height:1.5;
+  }
+  .q-prompt .qn{color:var(--c1-b);font-family:'Manrope',sans-serif;font-weight:800;}
+  .q-prompt b{color:var(--c2-b);}
+  .q-hint{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:500;
+    margin:-8px 0 12px;
+  }
+
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opts.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .opt{
+    text-align:left;
+    border:1.5px solid var(--line);
+    background:#fff;
+    border-radius:12px;
+    padding:11px 14px;
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .12s ease;
+  }
+  .opt:hover:not(.correct):not(.wrong):not([disabled]){
+    border-color:var(--c1-b);
+    background: rgba(14,124,104,0.07);
+  }
+  .opt.correct{background:var(--correct-bg);border-color:var(--correct-ink);color:var(--correct-ink);}
+  .opt.wrong{background:var(--wrong-bg);border-color:var(--wrong-ink);color:var(--wrong-ink);}
+  .opt[disabled]{cursor:default;}
+
+  .q-feedback{
+    margin-top:10px;
+    font-size:13.5px;
+    font-weight:600;
+    padding:10px 13px;
+    border-radius:10px;
+    display:none;
+    line-height:1.5;
+  }
+  .q-feedback.show{display:block;}
+  .q-feedback.ok{background:var(--correct-bg);color:var(--correct-ink);}
+  .q-feedback.bad{background:var(--wrong-bg);color:var(--wrong-ink);}
+
+  /* --- reading text with photo --- */
+  .reading{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+    margin-bottom:16px;
+  }
+  .reading img{
+    width:150px;height:150px;
+    object-fit:cover;
+    flex:none;border-radius:16px;
+    box-shadow:0 10px 22px -12px rgba(18,53,41,0.3);
+  }
+  .passage{
+    background:var(--bg-soft);
+    border-radius:16px;
+    padding:16px 18px;
+    font-size:14.5px;
+    line-height:1.95;
+    flex:1;
+  }
+  .passage p{margin:0 0 10px;}
+  .passage p:last-child{margin-bottom:0;}
+  .passage .title{
+    display:block;
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--c1-b);
+    margin-bottom:10px;
+  }
+  .photo-credit{font-size:11px;color:var(--ink-soft);opacity:.7;margin:-10px 0 16px;text-align:right;}
+  @media (max-width:520px){
+    .reading{flex-direction:column;}
+    .reading img{width:100%;max-width:280px;height:170px;margin:0 auto;}
+  }
+
+  /* --- flip cards (правило ↔ приклад) --- */
+  .flip-note{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:600;
+    line-height:1.5;
+    margin:-8px 0 22px;
+  }
+  .flip-hint{
+    font-size:12px;
+    color:var(--ink-soft);
+    opacity:.8;
+    font-weight:700;
+    margin:0 0 10px;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+  }
+  .flipgrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(128px,1fr));
+    gap:12px;
+    margin-bottom:22px;
+  }
+  .flipgrid:last-child{margin-bottom:0;}
+  .flipcard{
+    perspective:1000px;
+    height:96px;
+    cursor:pointer;
+  }
+  .flipcard.tall{height:120px;}
+  .flip-inner{
+    position:relative;
+    width:100%;height:100%;
+    transition:transform .5s cubic-bezier(.4,.2,.2,1);
+    transform-style:preserve-3d;
+  }
+  .flipcard.flipped .flip-inner{transform:rotateY(180deg);}
+  .flip-face{
+    position:absolute;inset:0;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    border-radius:14px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:10px 12px;
+  }
+  .flip-front{
+    font-family:'Manrope',sans-serif;
+    font-weight:800;
+    font-size:14.5px;
+    color:#fff;
+    background:linear-gradient(150deg,var(--c1-a),var(--c1-b));
+    box-shadow:0 10px 20px -12px var(--c1-sh);
+  }
+  .flipcard.tall .flip-front{font-size:13px;line-height:1.3;}
+  .flip-front.alt{
+    background:linear-gradient(150deg,var(--c3-a),var(--c3-b));
+    box-shadow:0 10px 20px -12px var(--c3-sh);
+  }
+  .flip-back{
+    transform:rotateY(180deg);
+    background:var(--bg-soft);
+    color:var(--ink);
+    font-size:12.5px;
+    font-weight:600;
+    line-height:1.45;
+    border:1.5px solid var(--line);
+  }
+  .flipcard.tall .flip-back{font-size:11.5px;line-height:1.4;}
+  .flip-back b{color:var(--c1-b);}
+  .flip-back.alt b{color:var(--c3-b);}
+
+  footer{
+    text-align:center;
+    margin-top:36px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="kicker" href="index.html">← До всіх уроків</a>
+    <div class="kicker">8 клас · Повторення</div>
+  </div>
+
+  <h1><span class="num">3.</span> Розряди прислівників за значенням</h1>
+  <p class="sub">Означальні й обставинні прислівники, сім розрядів, питання до кожного з них — і практика на розпізнавання в реченні та в тексті.</p>
+
+  <div class="progress-wrap">
+    <span class="progress-label">Результат: <span id="score-num">0</span>/<span id="score-total">0</span></span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="kicker" href="index.html">← До всіх уроків</a>
+    <div class="kicker">8 клас · Повторення</div>
+  </div>
+
+  <h1><span class="num">4.</span> Правопис прислівників</h1>
+  <p class="sub">Разом, окремо чи через дефіс — і як не сплутати прислівник з іменником чи займенником у знахідному відмінку.</p>
+
+  <div class="progress-wrap">
+    <span class="progress-label">Результат: <span id="score-num">0</span>/<span id="score-total">0</span></span>
+    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <!-- ДОВІДКА (флип-картки) -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">✦</div>
+      <h2 class="block-title">Пригадаймо</h2>
+    </div>
+    <p class="block-desc">Немає єдиного правила на всі випадки — доводиться запам'ятовувати групи слів. Головна підказка: якщо між прийменником і словом можна вставити означення або поставити відмінкове питання — це, найімовірніше, не прислівник, а іменник (чи інша частина мови) з прийменником, і пишемо окремо. Торкніться картки.</p>
+
+    <p class="flip-hint">Разом</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">напрямок, час, місце</div>
+          <div class="flip-face flip-back"><b>вгору, спочатку, назустріч, взимку, навесні</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">колишній іменник втратив самостійне значення</div>
+          <div class="flip-face flip-back">не можна вставити слово між частинами: <b>впродовж, ліворуч, обабіч</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint">Окремо</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">стійкі сполуки «прийменник + іменник»</div>
+          <div class="flip-face flip-back alt"><b>без відома, без сумніву, до речі, на жаль, на щастя, до ладу</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">повторення слова з «у» або «в» посередині</div>
+          <div class="flip-face flip-back alt"><b>день у день, раз у раз, з боку на бік, рік у рік</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint">З дефісом</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">по- + -ому / -ки / -ський</div>
+          <div class="flip-face flip-back">по-новому, по-українськи, <b>по-моєму</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">будь-, -небудь, казна-, хтозна-, аби-, де-</div>
+          <div class="flip-face flip-back">будь-де, коли-небудь, <b>хтозна-як, аби-як</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">повторення того самого чи спорідненого слова</div>
+          <div class="flip-face flip-back">тишком-нишком, врешті-решт, <b>пліч-о-пліч, часто-густо</b></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="flip-hint">Не плутай: прислівник чи іменник (займенник) з прийменником</p>
+    <div class="flipgrid">
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">вгору (прислівник)</div>
+          <div class="flip-face flip-back alt">напрямок дії, нема залежного слова: <b>«птах летів вгору»</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front alt">в гору (іменник)</div>
+          <div class="flip-face flip-back alt">є чи можна додати означення: <b>«піднялися в (кам'янисту) гору»</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">по-своєму (дефіс)</div>
+          <div class="flip-face flip-back">спосіб дії, нема залежного слова: <b>«зробив по-своєму»</b></div>
+        </div>
+      </div>
+      <div class="flipcard tall">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">по своєму (окремо)</div>
+          <div class="flip-face flip-back">є залежне слово — займенник з прийменником: <b>«по своєму новому ліктю»</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ЗАВДАННЯ 1: разом, окремо чи з дефісом -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">1</div>
+      <h2 class="block-title">Разом, окремо чи з дефісом?</h2>
+    </div>
+    <p class="block-desc">Визначте, як написано виділене слово чи сполуку.</p>
+    <div id="quiz1"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 2: прислівник чи іменник з прийменником -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">2</div>
+      <h2 class="block-title">Прислівник чи іменник з прийменником?</h2>
+    </div>
+    <p class="block-desc">Перевіряйте себе питанням: чи можна вставити означення між прийменником і словом?</p>
+    <div id="quiz2"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 3: обери правильний варіант -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">3</div>
+      <h2 class="block-title">Обери правильний варіант написання</h2>
+    </div>
+    <p class="block-desc">Оберіть правильно написаний прислівник чи сполуку.</p>
+    <div id="quiz3"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 4: третє зайве -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">4</div>
+      <h2 class="block-title">Знайдіть зайве слово</h2>
+    </div>
+    <p class="block-desc">У кожному рядку три слова пишуться однаково (разом / окремо / з дефісом), а одне — інакше. Знайдіть його.</p>
+    <div id="quiz4"></div>
+  </section>
+
+  <!-- ЗАВДАННЯ 5: текст -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">5</div>
+      <h2 class="block-title">Читаємо: «Гості з іншого міста»</h2>
+    </div>
+    <p class="block-desc">Прочитайте текст уважно — наступне завдання побудоване саме на ньому.</p>
+    <div class="reading">
+      <img src="https://images.unsplash.com/photo-1465447142348-e9952c393450?fm=jpg&q=75&w=500&auto=format&fit=crop" alt="Старовинна вулиця українського міста">
+      <div class="passage">
+        <span class="title">Гості з іншого міста</span>
+        <p>Друзі домовилися зустрітися <b>заздалегідь</b>, ще напередодні поїздки. Приїхали вони рано-вранці й одразу вирушили новим маршрутом, який порадив місцевий гід.</p>
+        <p>«Ходімо <b>пліч-о-пліч</b>, — сказав гід, — а по дорозі я розповім вам про кожен будинок». Друзі йшли поруч і <b>раз у раз</b> зупинялися, щоб сфотографувати старовинні вулиці.</p>
+        <p>Увечері вони завітали до затишної кав'ярні, де господар готував каву <b>по-своєму</b> — за старим сімейним рецептом. «Я роблю це <b>хтозна-як</b> довго, — усміхнувся він, — та ще жоден гість не був незадоволений».</p>
+        <p><b>На щастя</b>, дощ почався тільки <b>надвечір</b>, коли прогулянка вже закінчувалась. «Ви побачили місто так, як бачать його лише місцеві», — сказав гід наостанок.</p>
+      </div>
+    </div>
+    <div class="photo-credit">Фото: Unsplash</div>
+  </section>
+
+  <!-- ЗАВДАННЯ 6: за текстом -->
+  <section class="block">
+    <div class="block-head">
+      <div class="block-num">6</div>
+      <h2 class="block-title">Завдання за текстом</h2>
+    </div>
+    <p class="block-desc">Спираючись на текст «Гості з іншого міста», дайте відповіді на запитання.</p>
+    <div id="quiz6"></div>
+  </section>
+
+  <footer>@movoznavka · Урок 4 · 8 клас</footer>
+</div>
+
+<script>
+/* ============================================================
+   Загальний рушій тестів. Кожне питання:
+   { prompt, options:[...], correctIndex, explain }
+   Рендериться в контейнер через renderQuiz().
+   ============================================================ */
+
+let TOTAL = 0, SCORE = 0;
+function bump(correct){
+  TOTAL++; if(correct) SCORE++;
+  document.getElementById('score-num').textContent = SCORE;
+  document.getElementById('score-total').textContent = TOTAL;
+}
+function updateBar(){
+  const total = window.__totalQuestions || 1;
+  const done = window.__answeredQuestions || 0;
+  document.getElementById('progress-fill').style.width = Math.min(100,(done/total)*100)+'%';
+}
+
+function renderQuiz(containerId, questions, opts={}){
+  const el = document.getElementById(containerId);
+  window.__totalQuestions = (window.__totalQuestions||0) + questions.length;
+  questions.forEach((q,i)=>{
+    const qDiv = document.createElement('div');
+    qDiv.className = 'q';
+    let html = `<p class="q-prompt"><span class="qn">${i+1}.</span> ${q.prompt}</p>`;
+    if(q.hint){ html += `<p class="q-hint">${q.hint}</p>`; }
+    html += `<div class="opts ${opts.grid2 ? 'grid2':''}">`;
+    q.options.forEach((opt,oi)=>{
+      html += `<button class="opt" data-i="${oi}">${opt}</button>`;
+    });
+    html += `</div><div class="q-feedback" id="fb-${containerId}-${i}"></div>`;
+    qDiv.innerHTML = html;
+    el.appendChild(qDiv);
+
+    qDiv.querySelectorAll('.opt').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(qDiv.dataset.answered) return;
+        qDiv.dataset.answered = '1';
+        const chosen = parseInt(btn.dataset.i);
+        const correct = chosen === q.correctIndex;
+        qDiv.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+        btn.classList.add(correct?'correct':'wrong');
+        if(!correct){
+          qDiv.querySelectorAll('.opt')[q.correctIndex].classList.add('correct');
+        }
+        const fb = document.getElementById(`fb-${containerId}-${i}`);
+        fb.textContent = (correct? '✓ Правильно! ' : '✗ Неправильно. ') + (q.explain||'');
+        fb.className = 'q-feedback show ' + (correct?'ok':'bad');
+        bump(correct);
+        window.__answeredQuestions = (window.__answeredQuestions||0)+1;
+        updateBar();
+      });
+    });
+  });
+}
+
+/* ---------- флип-картки: клік перевертає ---------- */
+document.querySelectorAll('.flipcard').forEach(card=>{
+  card.addEventListener('click', ()=> card.classList.toggle('flipped'));
+});
+
+/* ---------- ЗАВДАННЯ 1: разом, окремо чи з дефісом ---------- */
+renderQuiz('quiz1', [
+  {
+    prompt:'Пташка полетіла <b>вгору</b>.',
+    options:['Окремо','Разом','З дефісом'],
+    correctIndex:1,
+    explain:'Прислівник напрямку «вгору» пишеться разом.'
+  },
+  {
+    prompt:'Гості завітали до нас <b>заздалегідь</b>.',
+    options:['З дефісом','Окремо','Разом'],
+    correctIndex:2,
+    explain:'«Заздалегідь» — прислівник часу, колишній іменник втратив самостійне значення — разом.'
+  },
+  {
+    prompt:'Вона зробила все <b>на щастя</b> для родини.',
+    options:['Разом','З дефісом','Окремо'],
+    correctIndex:2,
+    explain:'«На щастя» — стійка сполука прийменника з іменником, пишеться окремо.'
+  },
+  {
+    prompt:'Ми зустрічалися <b>день у день</b> цілий місяць.',
+    options:['З дефісом','Окремо','Разом'],
+    correctIndex:1,
+    explain:'Повторення слова через «у» пишемо окремо.'
+  },
+  {
+    prompt:'Цього разу зробили <b>по-своєму</b>.',
+    options:['Окремо','Разом','З дефісом'],
+    correctIndex:2,
+    explain:'«По-» перед формою на -ому пишеться через дефіс.'
+  },
+  {
+    prompt:'Друзі йшли <b>пліч-о-пліч</b> усю дорогу.',
+    options:['Разом','З дефісом','Окремо'],
+    correctIndex:1,
+    explain:'Повторення спорідненого слова через прийменник «о» пишеться з дефісом.'
+  }
+]);
+
+/* ---------- ЗАВДАННЯ 2: прислівник чи іменник з прийменником ---------- */
+renderQuiz('quiz2', [
+  {
+    prompt:'Дивишся — і ніби <b>вдруге</b> на світ народжуєшся.',
+    options:['Іменник з прийменником','Прислівник'],
+    correctIndex:1,
+    explain:'Тут «вдруге» означає «знову», немає залежного слова — прислівник, разом.'
+  },
+  {
+    prompt:'У перше відро налили холодної води, а <b>в друге</b> — гарячої.',
+    options:['Прислівник','Числівник з прийменником'],
+    correctIndex:1,
+    explain:'«В друге» стосується конкретного відра (можна вставити означення: «в друге дерев\\'яне відро») — числівник з прийменником, окремо.'
+  },
+  {
+    prompt:'Квітка нагадує підвішену <b>догори</b> парасольку.',
+    options:['Іменник з прийменником','Прислівник'],
+    correctIndex:1,
+    explain:'«Догори» означає напрямок, без залежного слова — прислівник, разом.'
+  },
+  {
+    prompt:'Нарешті мандрівники підійшли <b>до гори</b>.',
+    options:['Прислівник','Іменник з прийменником'],
+    correctIndex:1,
+    explain:'Можна вставити означення («до високої гори») і поставити відмінкове питання — іменник з прийменником, окремо.'
+  },
+  {
+    prompt:'Малеча неспішно поповзла <b>по моєму</b> ліктю.',
+    options:['Прислівник','Займенник з прийменником'],
+    correctIndex:1,
+    explain:'«По моєму» стосується конкретного ліктя (можна додати «по моєму лівому ліктю») — займенник з прийменником, окремо.'
+  },
+  {
+    prompt:'Цього разу вони зробили <b>по-своєму</b>.',
+    options:['Займенник з прийменником','Прислівник'],
+    correctIndex:1,
+    explain:'Означає спосіб дії («як?») і не має залежного слова — прислівник, через дефіс.'
+  }
+]);
+
+/* ---------- ЗАВДАННЯ 3: обери правильний варіант ---------- */
+renderQuiz('quiz3', [
+  {prompt:'Він прийшов (без)відома батьків.', options:['безвідома','без відома'], correctIndex:1, explain:'«Без відома» — стійка сполука, пишемо окремо.'},
+  {prompt:'Птах здійнявся (в)гору над лісом.', options:['в гору','вгору'], correctIndex:1, explain:'Напрямок руху без залежного слова — прислівник, разом.'},
+  {prompt:'Виконали завдання (по)новому.', options:['поновому','по-новому'], correctIndex:1, explain:'«По-» перед формою на -ому — через дефіс.'},
+  {prompt:'Хтозна(як) він про це дізнався.', options:['хтозна-як','хтознаяк'], correctIndex:0, explain:'«Хтозна-» з прислівником пишеться через дефіс.'},
+  {prompt:'Друзі мандрували (з)дня (на)день довше, ніж планували.', options:['з дня на день','здня надень'], correctIndex:0, explain:'Повторення слова з прийменниками пишемо окремо.'},
+  {prompt:'Вони йшли (на)зустріч вітру.', options:['на зустріч','назустріч'], correctIndex:1, explain:'«Назустріч» у значенні напрямку — прислівник, пишемо разом.'}
+], {grid2:true});
+
+/* ---------- ЗАВДАННЯ 4: третє зайве ---------- */
+renderQuiz('quiz4', [
+  {
+    prompt:'Знайдіть зайве слово (за написанням):',
+    options:['на жаль','без сумніву','вгору','до речі'],
+    correctIndex:2,
+    explain:'«Вгору» пишеться разом, решта слів — окремо (стійкі сполуки).'
+  },
+  {
+    prompt:'Знайдіть зайве слово (за написанням):',
+    options:['по-новому','по-українськи','без відома','по-моєму'],
+    correctIndex:2,
+    explain:'«Без відома» пишеться окремо, решта слів — через дефіс (по- + -ому/-и).'
+  },
+  {
+    prompt:'Знайдіть зайве слово (за написанням):',
+    options:['день у день','раз у раз','рік у рік','будь-де'],
+    correctIndex:3,
+    explain:'«Будь-де» пишеться через дефіс, решта слів — повторення з «у», окремо.'
+  },
+  {
+    prompt:'Знайдіть зайве слово (за написанням):',
+    options:['тишком-нишком','часто-густо','на щастя','пліч-о-пліч'],
+    correctIndex:2,
+    explain:'«На щастя» пишеться окремо, решта слів — через дефіс (повторення).'
+  },
+  {
+    prompt:'Знайдіть зайве слово (за написанням):',
+    options:['спочатку','назустріч','впродовж','до ладу'],
+    correctIndex:3,
+    explain:'«До ладу» пишеться окремо, решта слів — разом.'
+  },
+  {
+    prompt:'Знайдіть зайве слово (за написанням):',
+    options:['навесні','казна-де','хтозна-як','аби-як'],
+    correctIndex:0,
+    explain:'«Навесні» пишеться разом, решта слів — через дефіс.'
+  }
+], {grid2:true});
+
+/* ---------- ЗАВДАННЯ 6: за текстом ---------- */
+renderQuiz('quiz6', [
+  {
+    prompt:'Як написано слово «заздалегідь» у тексті і чому?',
+    options:['Окремо, бо це іменник з прийменником','Разом, бо це прислівник часу'],
+    correctIndex:1,
+    explain:'«Заздалегідь» — прислівник часу, колишній іменник втратив самостійне значення, пишемо разом.'
+  },
+  {
+    prompt:'Як гід запросив друзів іти вулицею?',
+    options:['Пліч-о-пліч','Навпростець','По-новому'],
+    correctIndex:0,
+    explain:'У тексті гід каже: «Ходімо пліч-о-пліч».'
+  },
+  {
+    prompt:'Чому «раз у раз» пишеться окремо?',
+    options:['Це стійка сполука з прийменником','Повторення слова через прийменник «у»','Це прислівник напрямку'],
+    correctIndex:1,
+    explain:'Повторення того самого слова через «у» пишемо окремо.'
+  },
+  {
+    prompt:'Як господар кав\\'ярні готував каву, за текстом?',
+    options:['За новим рецептом','По-своєму, за сімейним рецептом','Так, як усі навколо'],
+    correctIndex:1,
+    explain:'У тексті сказано: господар готував каву по-своєму — за старим сімейним рецептом.'
+  },
+  {
+    prompt:'Чому «хтозна-як» у тексті пишеться через дефіс?',
+    options:['Повторення слова','Частка «хтозна-»','«По-» перед формою на -ому'],
+    correctIndex:1,
+    explain:'Частка «хтозна-» з прислівником пишеться через дефіс.'
+  },
+  {
+    prompt:'Коли, за текстом, почався дощ?',
+    options:['Рано-вранці','Опівдні','Надвечір'],
+    correctIndex:2,
+    explain:'У тексті сказано: дощ почався тільки надвечір.'
+  }
+]);
+</script>
+</body>
+</html>
