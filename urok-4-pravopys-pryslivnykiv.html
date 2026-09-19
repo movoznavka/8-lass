@@ -15,7 +15,6 @@
     --ink-soft:#5C8577;
     --line: rgba(18,53,41,0.1);
 
-    /* колір цього уроку — смарагдово-бірюзова палітра */
     --c1-a:#4FB3A0; --c1-b:#0E7C68; --c1-sh: rgba(14,124,104,0.45);
     --c3-a:#E8A54C; --c3-b:#B4722A; --c3-sh: rgba(180,114,42,0.4);
     --c2-b:#B23A2E;
@@ -138,7 +137,6 @@
     line-height:1.5;
   }
 
-  /* --- reference scheme (not a task) --- */
   .ref-row{
     display:flex;
     gap:18px;
@@ -164,7 +162,6 @@
     .ref-row img{width:100%;height:130px;}
   }
 
-  /* --- quiz question --- */
   .q{
     margin-bottom:20px;
     padding-bottom:18px;
@@ -222,7 +219,6 @@
   .q-feedback.ok{background:var(--correct-bg);color:var(--correct-ink);}
   .q-feedback.bad{background:var(--wrong-bg);color:var(--wrong-ink);}
 
-  /* --- reading text with photo --- */
   .reading{
     display:flex;
     gap:18px;
@@ -261,7 +257,6 @@
     .reading img{width:100%;max-width:280px;height:170px;margin:0 auto;}
   }
 
-  /* --- flip cards (правило ↔ приклад) --- */
   .flip-note{
     font-size:12.5px;
     color:var(--ink-soft);
@@ -345,21 +340,6 @@
   }
 </style>
 </head>
-<body>
-<div class="wrap">
-  <div class="topbar">
-    <a class="kicker" href="index.html">← До всіх уроків</a>
-    <div class="kicker">8 клас · Повторення</div>
-  </div>
-
-  <h1><span class="num">3.</span> Розряди прислівників за значенням</h1>
-  <p class="sub">Означальні й обставинні прислівники, сім розрядів, питання до кожного з них — і практика на розпізнавання в реченні та в тексті.</p>
-
-  <div class="progress-wrap">
-    <span class="progress-label">Результат: <span id="score-num">0</span>/<span id="score-total">0</span></span>
-    <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
-  </div>
-
 <body>
 <div class="wrap">
   <div class="topbar">
@@ -540,12 +520,6 @@
 </div>
 
 <script>
-/* ============================================================
-   Загальний рушій тестів. Кожне питання:
-   { prompt, options:[...], correctIndex, explain }
-   Рендериться в контейнер через renderQuiz().
-   ============================================================ */
-
 let TOTAL = 0, SCORE = 0;
 function bump(correct){
   TOTAL++; if(correct) SCORE++;
@@ -596,12 +570,10 @@ function renderQuiz(containerId, questions, opts={}){
   });
 }
 
-/* ---------- флип-картки: клік перевертає ---------- */
 document.querySelectorAll('.flipcard').forEach(card=>{
   card.addEventListener('click', ()=> card.classList.toggle('flipped'));
 });
 
-/* ---------- ЗАВДАННЯ 1: разом, окремо чи з дефісом ---------- */
 renderQuiz('quiz1', [
   {
     prompt:'Пташка полетіла <b>вгору</b>.',
@@ -641,7 +613,6 @@ renderQuiz('quiz1', [
   }
 ]);
 
-/* ---------- ЗАВДАННЯ 2: прислівник чи іменник з прийменником ---------- */
 renderQuiz('quiz2', [
   {
     prompt:'Дивишся — і ніби <b>вдруге</b> на світ народжуєшся.',
@@ -653,7 +624,7 @@ renderQuiz('quiz2', [
     prompt:'У перше відро налили холодної води, а <b>в друге</b> — гарячої.',
     options:['Прислівник','Числівник з прийменником'],
     correctIndex:1,
-    explain:'«В друге» стосується конкретного відра (можна вставити означення: «в друге дерев\\'яне відро») — числівник з прийменником, окремо.'
+    explain:'«В друге» стосується конкретного відра (можна вставити означення: «в друге дерев\u2019яне відро») — числівник з прийменником, окремо.'
   },
   {
     prompt:'Квітка нагадує підвішену <b>догори</b> парасольку.',
@@ -681,7 +652,6 @@ renderQuiz('quiz2', [
   }
 ]);
 
-/* ---------- ЗАВДАННЯ 3: обери правильний варіант ---------- */
 renderQuiz('quiz3', [
   {prompt:'Він прийшов (без)відома батьків.', options:['безвідома','без відома'], correctIndex:1, explain:'«Без відома» — стійка сполука, пишемо окремо.'},
   {prompt:'Птах здійнявся (в)гору над лісом.', options:['в гору','вгору'], correctIndex:1, explain:'Напрямок руху без залежного слова — прислівник, разом.'},
@@ -691,7 +661,6 @@ renderQuiz('quiz3', [
   {prompt:'Вони йшли (на)зустріч вітру.', options:['на зустріч','назустріч'], correctIndex:1, explain:'«Назустріч» у значенні напрямку — прислівник, пишемо разом.'}
 ], {grid2:true});
 
-/* ---------- ЗАВДАННЯ 4: третє зайве ---------- */
 renderQuiz('quiz4', [
   {
     prompt:'Знайдіть зайве слово (за написанням):',
@@ -731,7 +700,6 @@ renderQuiz('quiz4', [
   }
 ], {grid2:true});
 
-/* ---------- ЗАВДАННЯ 6: за текстом ---------- */
 renderQuiz('quiz6', [
   {
     prompt:'Як написано слово «заздалегідь» у тексті і чому?',
@@ -752,7 +720,7 @@ renderQuiz('quiz6', [
     explain:'Повторення того самого слова через «у» пишемо окремо.'
   },
   {
-    prompt:'Як господар кав\\'ярні готував каву, за текстом?',
+    prompt:'Як господар кав\u2019ярні готував каву, за текстом?',
     options:['За новим рецептом','По-своєму, за сімейним рецептом','Так, як усі навколо'],
     correctIndex:1,
     explain:'У тексті сказано: господар готував каву по-своєму — за старим сімейним рецептом.'
